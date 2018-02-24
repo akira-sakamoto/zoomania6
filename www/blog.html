@@ -1,0 +1,27 @@
+<ons-page id="book" modifier="bgImage">
+  <!-- ツールバー -->
+  <ons-toolbar modifier="toolbar">
+    <div class="left">
+      <ons-back-button modifier="toolbar">戻る</ons-back-button>
+    </div>
+    <div class="center">しいくいんブログ</div>
+    <div class="right">
+      <ons-toolbar-button>
+        <ons-icon icon="fa-qrcode" class="toolbarIcon" onclick="myPushPage('qrscan.html')"></ons-icon>
+      </ons-toolbar-button>
+    </div>
+  </ons-toolbar>
+  
+  <!-- 本体だよ -->
+<ons-navigator id="navigator" page="index.html"></ons-navigator>
+<template id="index.html">
+<ons-page id="blog">
+<iframe src="https://ameblo.jp/utsunomiyazoo/" class="Keepersblog">この部分はインラインフレームを使用しています。</iframe>
+</ons-page>
+</template>
+
+<footer id="footer">
+    <center><img src="assets/image/footer_pic.png" width="95%" height="auto" border="none">
+        <a href="http://araten.co.jp/" target="_blank">©ARATEN 2018</a>
+    </center>
+</footer>

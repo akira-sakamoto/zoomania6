@@ -1,0 +1,20 @@
+<ons-page id="book" modifier="bgImage">
+  <!-- ツールバー -->
+  <ons-toolbar modifier="toolbar">
+    <div class="left">
+      <ons-back-button modifier="toolbar">戻る</ons-back-button>
+    </div>
+    <div class="center">どうぶつずかん</div>
+    <div class="right">
+      <ons-toolbar-button>
+        <ons-icon icon="fa-qrcode" class="toolbarIcon" onclick="myPushPage('qrscan.html')"></ons-icon>
+      </ons-toolbar-button>
+    </div>
+  </ons-toolbar>
+  
+  <!-- 本体だよ -->
+  <ons-list>
+    <ons-lazy-repeat id="animalList">
+    </ons-lazy-repeat>
+  </ons-list>
+</ons-page>

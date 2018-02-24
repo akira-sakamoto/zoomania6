@@ -1,0 +1,140 @@
+<ons-page id="help" modifier="bgImage">
+    <!-- ツールバー -->
+    <ons-toolbar modifier="toolbar">
+      <div class="left">
+        <ons-back-button modifier="toolbar">戻る</ons-back-button>
+      </div>
+      <div class="center">ごあんない</div>
+      <div class="right">
+        <ons-toolbar-button>
+          <ons-icon icon="fa-qrcode" class="toolbarIcon" onclick="myPushPage('qrscan.html')"></ons-icon>
+        </ons-toolbar-button>
+      </div>
+    </ons-toolbar>
+    
+    <!-- 本体だよ -->
+    	<center><div id="fee_title">料金のご案内</div>
+		<table border="1" cellspacing="0" cellpadding="0" bordercolor="#552200" id="fee">
+		<tr><th colspan="3">入園料金　<small>（※消費税込み）</small></th><th>一般料金</th><th>一般団体料金<br />子供会料金</th><th>教育団体<br />割引料金</th></tr>
+		<tr><th rowspan="4">動物園<br />遊園地</th></tr>
+			<tr>
+				<td colspan="2">大人（高校生以上）</td><td>1,200円</td><td>900円</td><td>480円</td></tr>
+			<tr>
+				<td rowspan="2">小人</td><td><small>小～中学生</small></td><td>600円</td><td>450円</td><td>350円</td></tr>
+			<tr>
+				<td><small>3歳～小学生前</small></td><td>600円</td><td>450円</td><td>320円</td></tr>
+		<tr><th rowspan="4">プール</th></tr>
+			<tr>
+				<td colspan="2">大人（高校生以上）</td><td>700円</td><td>450円</td><td>450円</td></tr>
+			<tr>
+				<td rowspan="2">小人</td><td><small>小～中学生</small></td><td>350円</td><td>300円</td><td>300円</td></tr>
+			<tr>
+				<td><small>3歳～小学生前</small></td><td>350円</td><td>300円</td><td>300円</td></tr>
+		<tr><th rowspan="4">共通券<br /><small>動物園<br />遊園地<br />プール</small></th></tr>
+			<tr>
+				<td colspan="2">大人（高校生以上）</td><td>1,400円</td><td>1,100円</td><td>840円</td></tr>
+			<tr>
+				<td rowspan="2">小人</td><td><small>小～中学生</small></td><td>700円</td><td>500円</td><td>450円</td></tr>
+			<tr>
+				<td><small>3歳～小学生前</small></td><td>700円</td><td>500円</td><td>450円</td></tr>
+    </table></center>
+    <table border="0" cellpadding="0" cellspacing="0" class="Fee2">
+        <tr><td>●引率の先生方は無料</td></tr>
+        <tr><td>●15名様から団体割引になります。（教育団体は除く）</td></tr>
+        <tr><td>小中学生のみ乗り物券1回つきます。（教育団体のみ）</td></tr>
+        <tr><td>※教育団体は割引料金あり</td></tr>
+        <tr><td>※障がい者手帳をお持ちの方、ご本人様とお付き添いの方１名様は、<br/>
+        入園料が大人(1,000円)・小人(500円)になります。</td></tr>
+        <tr><td>＊エサは動物園で販売されているものをご利用ください。</td></tr>
+        <tr><td>＊ペット同伴の入場はできません。</td></tr>
+        <tr><td>＊表示価格はすべて税込みです。</td></tr>
+    </table>
+        
+        <center><div id="fee_title">アクセス</div>
+        <img src="assets/image/map.png" border="none" widht="100%" height="auto" title="アクセス" alt="アクセス">
+    <table border="1" cellspacing="0" cellpadding="0" bordercolor="#552200" id="fee">
+    <tr><th><big>お車でお越しの方</big></th></tr><tr>
+    <tr><th>●東北自動車道【宇都宮インター】より車で約5分</th></tr><tr>
+    <td>インターより宇都宮市内へ下車。<br/>
+        直線方向へ約800m。<br/>
+        119号線 『日光街道』 を左折後、<br/>
+        2つ目の信号を右折。<br/>
+        インター下車後、約５分。</td></tr>
+    <tr><th><big>駐車場料金</big></th></tr>
+    <tr><td>【乗用車】無料（1,000台）<br/>
+            【大型車】無料</td></tr>
+    <tr><th><big>公共交通機関でお越しの方</big></th></tr>
+    <tr><th>関東バス【「下金井」停留所】より徒歩約5分</th></tr>
+    <tr><td>JR宇都宮駅西口『8番線』<br/>
+        （山王団地行・日光方面行・石那田行・船生行）<br/>
+        より乗車<br/>
+        各行きにて『下金井町』停留所下車。<br/>
+        バスの進行方向信号1つ目を右折。<br/>
+        徒歩約５分</td></tr>
+    </table>
+<!--ons-navigator id="navigator" page="index.html"></ons-navigator>
+<template id="index.html">
+<ons-page id="infomation">
+<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1131.9831805444471!2d139.8528944002817!3d36.63283873823815!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x601f6f7e25cdb9fb%3A0x139ed6e5c68a7eba!2z5a6H6YO95a6u5YuV54mp5ZyS!5e0!3m2!1sja!2sjp!4v1518485572653" width="400" height="300" frameborder="0" style="border:0" allowfullscreen class="infomation">
+この部分はインラインフレームを使用しています。</iframe>
+</ons-page>
+</template-->
+    <div id="fee_title">営業時間</div>
+    <table border="1" cellspacing="0" cellpadding="0" bordercolor="#552200" id="fee">
+    <tr><th>休園日</th><td>年中無休</td></tr>
+    <tr><th>通常期間(3月～12月) </th><td>9:00～17:00</td></tr>
+        <tr><th>冬期期間(1月中旬～2月末)</th><td>9:30～16:30</td></tr>
+        <tr><td colspan="2" aligh="left">雨の日でも大丈夫！しかもお得！<br/>
+        宇都宮動物園に併設している遊園地は、<br/>
+        屋内施設や屋根付きの乗り物が沢山あって<br/>
+        雨の日でも楽しむことが出来ます。<br/>
+        しかも、雨の日だけのお得なサービスもあります。<br/>
+        <br/>
+        11枚綴り乗り物券　通常1,000円→雨の日800円<br/>
+        お子様には、次回分の入園無料券を差し上げます。</td></tr>
+    </table>
+
+
+    <div id="fee_title">近隣のサービス</div>
+    <table border="1" cellspacing="0" cellpadding="0" bordercolor="#552200" id="fee">
+    <tr><th colspan="2">PET Hotel</th></tr>
+        <tr><th>料金 </th><td>1泊2日（散歩・清掃込み）<br/>3,500円<small>（税込）<br/>※送迎サービスもあります。（別料金）</small></td></tr>
+        <tr><th>対象</th><td>■お預かり可能な動物<br/>犬（大型犬も可）／猫／小動物</td></tr>
+        <tr><th>その他</th><td><small>1週間前までにご予約ください。<br/>犬、猫等ワクチン接種をされていないペットの<br/>お預かりはできません。</small></td></tr>
+        <tr><td colspan="2"><font color="#FF0000">完全予約制</font><br/>028-665-4255</td></tr>
+    </table>
+    <table border="1" cellspacing="0" cellpadding="0" bordercolor="#552200" id="fee">
+    <tr><th colspan="2">移動動物園<br/><big>わくわくランド</big></th></tr>
+        <tr><td colspan="2">あなたのまちにも<br/>宇都宮動物園の移動動物園をよんでみませんか？<br/>様々なイベントや教育の場面に動物たちと一緒に<br/>宇都宮動物園がうかがいます！！<br/>動物たちとの楽しいひと時は、<br/>きっと思い出に残ることでしょう。</td></tr>
+        <tr><th>その他</th><td><small>「ふわふわ」や「ミニSL」などの移動遊具、<br/>「わんわんショー」、「大道芸人」、「お笑い芸人ショー」<br/>などもご利用いただけます。</small></td></tr>
+        <tr><td colspan="2"><font color="#FF0000">お問い合わせ先</font><br/>028-665-4255</td></tr>
+    </table>
+
+    <div id="fee_title">お問い合わせ</div>
+    <table border="1" cellspacing="0" cellpadding="0" bordercolor="#552200" id="fee">
+    <tr><th rowspan="2">お電話</th><td>028-665-4255</td></tr>
+    <tr><td>9:00～17:00<br/>冬季（1月～2月）9:00～16:30</td></tr>
+    <tr><th>FAX</th><td>028-665-6287</td></tr>
+    <tr><th>E-Mail</th><td>info@ustunomiya-zoo.com</td></tr>
+    <th>公式<br/>ホームページ</th><td>
+            <ons-list-item>
+            <ons-button modifier="large" onclick="myPushPage('homepage.html')">
+            宇都宮動物園ＨＰ
+          </ons-button>
+            </ons-list-item>
+          </td></tr>
+        <tr><th>公式<br/>Twitter</th><td><a href="https://twitter.com/doubutsuen0601?ref_src=twsrc%5Etfw" class="twitter-follow-button" data-show-count="false">Follow @doubutsuen0601</a><script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script></td></tr>
+    </table>
+    <div id="fee_title">Ｔｗｉｔｔｅｒ</div>
+<a class="twitter-timeline" href="https://twitter.com/doubutsuen0601?ref_src=twsrc%5Etfw">Tweets by doubutsuen0601</a>
+<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+</center>
+
+<footer id="footer">
+    <center><img src="assets/image/footer_pic.png" width="95%" height="auto" border="none">
+        <a href="http://araten.co.jp/" target="_blank">©ARATEN 2018</a>
+            
+        </center>
+  </ons-page>
+  

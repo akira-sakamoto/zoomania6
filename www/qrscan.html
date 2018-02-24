@@ -1,0 +1,17 @@
+<ons-page id="qrscan" modifier="bgImage">
+  <!-- ツールバー -->
+  <ons-toolbar modifier="toolbar">
+    <div class="left">
+      <ons-back-button modifier="toolbar">戻る</ons-back-button>
+    </div>
+    <div class="center">QRコード</div>
+  </ons-toolbar>
+    
+  <!-- 本体だよ -->
+  <div class="qrBody">
+    <ons-button id="qrScanButton" modifier="large" class="main_btn">読み取り</ons-button>
+    <div class="qrResultMesage" id="qrResultMessage">ここに結果が表示されます</div>
+    <ons-button id="qrBrowserOpenButton" modifier="large" style="display:none">URLをブラウザで開く</ons-button>
+  </div>
+</ons-page>
+      

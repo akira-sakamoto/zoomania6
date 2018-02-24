@@ -5,62 +5,95 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
   <meta http-equiv="Content-Security-Policy" content="default-src * data: gap: https://ssl.gstatic.com; style-src * 'unsafe-inline'; script-src * 'unsafe-inline' 'unsafe-eval'">
   <script src="components/loader.js"></script>
-  <script src="lib/onsenui/js/onsenui.min.js"></script>
+  <script src="lib/onsenui/js/onsenui.js"></script>
 
   <link rel="stylesheet" href="components/loader.css">
   <link rel="stylesheet" href="lib/onsenui/css/onsenui.css">
   <link rel="stylesheet" href="lib/onsenui/css/onsen-css-components.css">
   <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" type="text/css" href="path/to/onsen-css-components.css">
 
-  <script>
-    // Page init event
-    document.addEventListener('init', function(event) {
-      var page = event.target;
-
-      if (page.matches('#first-page')) {
-
-        page.querySelector('#push-button').onclick = function() {
-          document.querySelector('#navigator').pushPage('page2.html');
-        };
-
-      } else if (page.matches('#second-page')) {
-
-        page.querySelector('#pop-button').onclick = function() {
-          document.querySelector('#navigator').popPage();
-        };
-
-      }
-    });
-  </script>
+  <!-- QRscan -->
+  <script src="lib/zepto.js"></script>
+  <!-- for zoomania -->
+  <script src="scripts/app.js"></script>
 </head>
 <body>
-  <ons-navigator id="navigator" page="page1.html"></ons-navigator>
+  <ons-navigator id="navigator" page="menu.html"></ons-navigator>
 
-  <ons-template id="page1.html">
-    <ons-page id="first-page">
-      <ons-toolbar>
-        <div class="center">Page 1</div>
+  <!-- メインメニュー -->
+  <ons-template id="menu.html">
+    <ons-page id="menu" modifier="bgImage">
+      <!-- ツールバー -->
+      <ons-toolbar modifier="toolbar">
+        <div class="left">
+          <ons-back-button>戻る</ons-back-button>
+        </div>
+        <div class="center">宇都宮動物園アプリ</div>
+        <div class="right">
+          <ons-toolbar-button>
+            <ons-icon icon="fa-qrcode" class="toolbarIcon" onclick="myPushPage('qrscan.html')"></ons-icon>
+          </ons-toolbar-button>
+        </div>
       </ons-toolbar>
 
-      <div class="content" style="text-align: center">
-        <p>This is the first page.</p>
-        <ons-button id="push-button">Push page</ons-button>
-      </div>
-    </ons-page>
-  </ons-template>
+<!-- ロゴ画像 -->
+<center><img src="assets/image/header_logo.png" class="logo_pct"></center>
 
-  <ons-template id="page2.html">
-    <ons-page id="second-page">
-      <ons-toolbar>
-        <div class="left"><ons-back-button>Page 1</ons-back-button></div>
-        <div class="center">Page 2</div>
-      </ons-toolbar>
+      <!-- メニュー -->
+      <ons-list modifier="menu">
+        <ons-list-item>
+          <ons-button modifier="large" onclick="myPushPage('map.html')">
+          <!--ons-icon icon="fa-map-marker" fixed-width="true" class="menuIcon"></ons-icon-->
+            <img src="assets/image/icon_map.png" class="mini_icon">
+            えんないＭＡＰ
+          </ons-button>
+        </ons-list-item>
+        <ons-list-item>
+          <ons-button modifier="large" onclick="myPushPage('zukan.html')">
+            <!--ons-icon icon="fa-book" fixed-width="true" class="menuIcon"></ons-icon-->
+            <img src="assets/image/icon_pb.png" class="mini_icon">
+            どうぶつずかん
+          </ons-button>
+        </ons-list-item>
+        <ons-list-item>
+          <ons-button modifier="large" onclick="myPushPage('pleasure.html')">
+            <!--ons-icon icon="fa-book" fixed-width="true" class="menuIcon"></ons-icon-->
+            <img src="assets/image/icon_pleasure.png" class="mini_icon">
+            おたのしみ
+          </ons-button>
+        </ons-list-item>
+        <ons-list-item>
+          <!--ons-button modifier="large" onclick="window.open('https://ameblo.jp/utsunomiyazoo/')" class="main_btn"-->
+          <ons-button modifier="large" onclick="myPushPage('blog.html')">
+          <!--ons-icon icon="fa-commenting-o" fixed-width="true" class="menuIcon"></ons-icon-->
+            <img src="assets/image/icon_blog.png" class="mini_icon">
+            しいくいんブログ
+          </ons-button>
+        </ons-list-item>
+        <ons-list-item>
+          <ons-button modifier="large" onclick="myPushPage('help.html')">
+          <!--ons-icon icon="fa-info-circle" fixed-width="true" class="menuIcon"></ons-icon-->
+            <img src="assets/image/icon_info.png" class="mini_icon"-->
+            おとなのかたへ
+          </ons-button>
+        </ons-list-item>
+        <ons-list-item>
+          <ons-button modifier="large" onclick="myPushPage('infomation.html')">
+            <!--ons-icon icon="fa-info-circle" fixed-width="true" class="menuIcon"></ons-icon-->
+            <img src="assets/image/icon_gear.png" class="mini_icon">
+            ごあんない
+          </ons-button>
+        </ons-list-item>
+      </ons-list>
 
-      <div class="content" style="text-align: center">
-        <p>This is the second page.</p>
-        <ons-button id="pop-button">Pop page</ons-button>
-      </div>
-    </ons-page>
+<footer id="footer">
+    <center><img src="assets/image/footer_pic.png" width="95%" height="auto" border="none">
+        <a href="http://araten.co.jp/" target="_blank">©ARATEN 2018</a>
+    </center>
+</footer>
+
+</ons-page>
   </ons-template>
 </body>
 </html>

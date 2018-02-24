@@ -1,0 +1,27 @@
+<ons-page id="detail" modifier="bgImage">
+  <!-- ツールバー -->
+  <ons-toolbar modifier="toolbar">
+    <div class="left">
+      <ons-back-button modifier="toolbar">戻る</ons-back-button>
+    </div>
+    <div class="center" id="title"></div>
+    <div class="right">
+      <ons-toolbar-button>
+        <ons-icon icon="fa-qrcode" class="toolbarIcon" onclick="myPushPage('qrscan.html')"></ons-icon>
+      </ons-toolbar-button>
+    </div>
+  </ons-toolbar>
+  
+  <!-- 本体だよ -->
+  <div class="photo"><img id="photo" src=""></div>
+  <p class="jpName">
+    <a id="urlWiki" href="">
+      <span id="jpName"></span>
+    </a>
+  </p>
+  <p class="enName">英名: <span id="enName"></span></p>
+  <p class="zlName">学名: <span id="zlName"></span></p>
+  <p class="classified">分類: <span id="classified"></span></p>
+  <hr>
+  <p class="description"><span id="description"></span></p>
+</ons-page>
