@@ -31,7 +31,33 @@
     font-size: 22px;
     text-shadow: 0 2px 0 #000;
 }
-
+.list--menu {
+  margin: 0;
+  padding: 0;
+  border: none;
+  background-color: rgba(0,0,0.0);
+  display: inline;
+}
+/* menu buttons */
+.list-item--menu {
+  /*  margin: 0 0 -1px 0;*/
+    margin: 0 auto 0;
+    color: #1f1f21;
+  -webkit-transition: background-color 0.2s linear;
+/*    background-color: rgba(212,212,0,0.32);*/
+/* ここ(2018.02.07)*/
+/*    background-color: rgba(212,212,0,0.32);
+    background-color: red;
+    border-radius: 16px;
+    box-shadow: 2px 2px;
+    background-color: cyan;*/
+}
+.list-item__left--menu {
+  border:none;
+}
+.list-item--menu__center {
+  padding:0;
+}
 /* book */
 .animalListDiv {
     margin: 0;
@@ -68,7 +94,6 @@
 
 /* detail */
 #detail div p {
-<<<<<<< HEAD
   margin-left: 0.5em;
   margin-right: 0.5em;
 }
@@ -178,7 +203,7 @@
 #fee table{
     margin: 0;
     padding: 0;
-	width: 100%;
+  width: 100%;
 	height: auto;
 	border: solid 1px #552200;
 	background: cream;
@@ -186,14 +211,15 @@
 #fee tr{
 	margin: 0;
 	padding: 0;
-	border: dotted 1px #55200;}
+    border: dotted 1px #552000;
+}
 #fee th{
 	margin: 0;
 	padding: 12px 4px;
 	color: white;
     font-size: 12px;    
     font-weight: 600;
-	text-align; center;
+	text-align: center;
 	background-color: #552200;
 	border: dashed 1px #FFFFFF;
 	}
@@ -247,7 +273,7 @@
 	color: white;
     font-size: 12px;    
     font-weight: 600;
-	text-align; center;
+	text-align: center;
 	background-color: #ca8e3e;
     text-shadow: 1px 1px 2px #441100;
     border: dashed 1px #552200;
@@ -263,3 +289,24 @@
     border: dashed 1px #552200;
     text-align: left;
 	}
+
+.myMenu {
+  padding:4px 12px;
+  text-shadow: 0 2px 0 #444;
+  font-size: 20px;
+  line-height: 36px;
+  background-color: rgb(187, 147, 62);
+  border-top: solid 2px rgb(228, 199, 146);
+  border-left: solid 2px rgb(228, 199, 146);
+  border-bottom: solid 2px rgb(0, 0, 0);
+  border-bottom: solid 2px rgb(0, 0, 0);
+  border-radius: 16px;
+}
+
+/* メニューをくっつける */
+ons-list-item.list-item {
+  padding-left: 0px;
+}
+.list-item__center {
+  padding: 0;
+}
