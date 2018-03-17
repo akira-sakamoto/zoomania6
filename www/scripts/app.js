@@ -59,7 +59,7 @@
             $('#description')[0].innerText = animal.description;
             return;
           }
-        })
+        });
       }, 100);
     },
 
@@ -68,58 +68,24 @@
      */
     map: function() {
       console.log('_pageList.map <<');
-      createImageView({id:'mapImage', x:0, y:0});
-      
-      document.addEventListener('touchmove', function(event) {
-        event.preventDefault();
+
+      var zooMap = $("#zooMap");
+      var prevScale = 1;
+      var scale = 1;
+
+      $(zooMap).on("transform", function(event) {
+        console.log("transform");
+        var gesture = getGesture(event);
+        scale = Math.max(0.5, Math.min(prevScale * gesture.scale, 3));
+        console.log("scale = " + scale);
+        zooMap.css({transform: "scale(" + scale + "," + scale + ")"});
       });
       
-      function createImageView(params) {
-        var view = {
-          element: $('#mapImage'),
-          x: params.x,
-          y: params.y,
-          scale: 1,
-          prevScale: 1,
-          
-          init: function() {
-            console.log('createImageView.init');
-            this.element.on('drag', this.onDrag.bind(this));
-            this.element.on('pinch', this.onPinch.bind(this));
-            this.element.on('release', this.onRelease.bind(this));
-            this.update();
-          },
-          
-          onDrag: function(event) {
-            console.log('createImageView.onDrag');
-            this.element.addClass('dragging');
-            var gesture = getGesture(event);
-            this.x = gesture.center.pageX;
-            this.y = gesture.center.pageY;
-            this.update();
-          },
-
-          onPinch: function(event) {
-            console.log('createImageView.onPinch');
-            var gesture = getGesture(event);
-            this.scale = Math.max(0.5, Math.min(this.prevScale * gesture.scale, 3));
-            this.update();
-          },
-          
-          onRelease: function(event) {
-            console.log('createImageView.onRelease');
-            this.prevScale = this.scale;
-            this.element.removeClass('dragging');
-          },
-          
-          update: function() {
-            var transform = 'translate(' + this.x + 'px,' + this.y + 'px)' + ' scale(' + this.scale + ')';
-            this.element.css('transform', transform);
-            console.log('update: ' + transform);
-          }
-        };
-        view.init();
-      }
+      $(zooMap).on("release", function(event) {
+        console.log("release");
+        prevScale = scale;
+      })
+      
       console.log('_pageList.map >>');
     },
 
