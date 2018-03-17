@@ -93,7 +93,7 @@
           onDrag: function(event) {
             console.log('createImageView.onDrag');
             this.element.addClass('dragging');
-            var gesture = event.originalEvent.gesture;
+            var gesture = getGesture(event);
             this.x = gesture.center.pageX;
             this.y = gesture.center.pageY;
             this.update();
@@ -101,7 +101,7 @@
 
           onPinch: function(event) {
             console.log('createImageView.onPinch');
-            var gesture = event.originalEvent.gesture;
+            var gesture = getGesture(event);
             this.scale = Math.max(0.5, Math.min(this.prevScale * gesture.scale, 3));
             this.update();
           },
@@ -113,8 +113,7 @@
           },
           
           update: function() {
-            var transform = 'translate(' + this.x + 'px,' + this.y + 'px)'
-                + ' scale(' + this.scale + ')';
+            var transform = 'translate(' + this.x + 'px,' + this.y + 'px)' + ' scale(' + this.scale + ')';
             this.element.css('transform', transform);
             console.log('update: ' + transform);
           }
@@ -212,7 +211,7 @@ var selectedAnimal = null;
 function myPushPage(page, option) {
   console.log('myPushPage ' + page + ', ' + option + ' <<');
   var options;
-  if ((option !== undefined) && (typeof option === 'string')) {
+  if (!isUndefinedOrNull(option) && (typeof option === 'string')) {
     // すごくダサいけれど選択された動物をグローバル変数に記憶する
     selectedAnimal = option.trim();
   }
@@ -222,3 +221,28 @@ function myPushPage(page, option) {
 }
 
 
+/**
+ * null チェック
+ * @param {any} value
+ * @return {boolean} 判定結果を返す
+ */
+function isUndefinedOrNull(value) {
+  return isUndefined(value) || value === null;
+}
+function isUndefined(value) {
+  return typeof value === 'undefined';
+}
+
+/**
+ * event.gesture を取り出す
+ * @param {Event} event
+ * @return {object} event.gesture を返す
+ */
+function getGesture(event) {
+  // ドキュメントでは event.originalEvent.gesture から取り出すことになっているが
+  // 実行すると originalEvent が存在しないので event.gesture を使う
+  if (isUndefinedOrNull(event.originalEvent)) {
+    return event.gesture;
+  }
+  return event.originalEvent.gesture;
+}
