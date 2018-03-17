@@ -84,7 +84,7 @@
       $(zooMap).on("release", function(event) {
         console.log("release");
         prevScale = scale;
-      })
+      });
       
       console.log('_pageList.map >>');
     },
@@ -136,14 +136,18 @@
             $('#qrResultMessage').text(error);
           });
         }
-      };
+      }
       console.log('_pageList.qrscan <<');
     }
 
   };
   
+  // addEventListener("init") の前に実行することで android 用のスタイル適用を
+  // 抑止できるチートらしいが、ons なんか知らないと怒られる
+  // ons.disableAutoStyling();
+  
   // Page init event
-  // ページ遷移ごとに実行される
+  // ページ遷移ごとに実行される  
   document.addEventListener('init', function(event) {
     console.log('init <<');
     
