@@ -6,6 +6,8 @@
    */
   var _zooData = [];
   
+  var _useDebug = true;
+  
   /**
    * @private {object} ページリスト
    */
@@ -111,36 +113,62 @@
        * スキャンボタン押下時
        */
       function scanBarcode() {
-        if (window.plugins === undefined) {
-          // エラーメッセージ
-          $('#qrResultMessage').text('QRコードスキャナは使えません');
+        if (_useDebug) {
+          var qrValue = {
+            text: "projectName=Utsunomiya&projectVersion=1.0&projectType=animal&itemId=lion&hash=aae60e5174462fbef17d4dbe4d0e34dc96b93d38",
+            format: "xx",
+            cancelled: ""
+          };
+          decodeQrCode(qrValue);
         } else {
-          window.plugins.barcodeScanner.scan(function(result) {
-            // successコールバック
-            if (result.cancelled) {
-              // キャンセルされたらなにもしない
-              return;
-            }
-            
-            // 結果テキストを表示する
-            $('#qrResultMessage').text(result.text);
-  
-            // URLならばブラウザでひらくボタンを表示する
-            if (result.text.indexOf('http') === 0) {
-              $('#qrBrowserOpenButton').show();
-            } else {
-              $('#qrBrowserOpenButton').hide();
-            }
-          }, function(error) {
-            // エラーコールバック
-            $('#qrResultMessage').text(error);
-          });
+          if (window.plugins === undefined) {
+            // エラーメッセージ
+            $('#qrResultMessage').text('QRコードスキャナは使えません');
+            return;
+          } else {
+            window.plugins.barcodeScanner.scan(function(result) {
+              // successコールバック
+              if (result.cancelled) {
+                // キャンセルされたらなにもしない
+                return;
+              }
+              // デコード
+              decodeQrCode(result);
+            }, function(error) {
+              // エラーコールバック
+              $('#qrResultMessage').text(error);
+            });
+          }        
         }
+        console.log('_pageList.qrscan <<');
       }
-      console.log('_pageList.qrscan <<');
     }
-
   };
+
+  function decodeQrCode(scanedValue) {
+    // 結果をデコードする
+    var qrArray = scanedValue.text.split(/&/g);
+    qrArray.forEach(function(keyValue) {
+      var args = keyValue.split(/=/);
+      console.log(args[0] + " = " + args[1]);
+    });
+    // projectName
+    // projectVersion
+    // projectType
+    // itemId
+    // hash
+    console.dir(qrArray);
+            
+    // 結果テキストを表示する
+    $('#qrResultMessage').text(scanedValue.text);
+  
+    // URLならばブラウザでひらくボタンを表示する
+//    if (result.text.indexOf('http') === 0) {
+//      $('#qrBrowserOpenButton').show();
+//    } else {
+//      $('#qrBrowserOpenButton').hide();
+//    }
+  }
   
   // addEventListener("init") の前に実行することで android 用のスタイル適用を
   // 抑止できるチートらしいが、ons なんか知らないと怒られる
