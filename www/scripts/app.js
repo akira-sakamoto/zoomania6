@@ -33,8 +33,8 @@
       var animalList = $('#animalList')[0];
       // console.dir(animalList);
       animalList.delegate = {
-        createItemContent: function(i) {
-          var animal = _zooData[i];
+        createItemContent: function(index) {
+          var animal = _zooData[index];
           var thumbnail = "assets/image/thumbnails/" + animal.thumbnail;
           var element = 
             "<ons-list-item>" +
@@ -42,6 +42,7 @@
                 "<img src='" + thumbnail + "' class='thumbnail'>" +
                 "<div class='animalListName'>" +
                   animal.jpName +
+                  "<div class='fa bookTrophy'></div>" +
                 "</div>" +
               "</div>" +
             "</ons-list-item>";
@@ -49,6 +50,9 @@
         },
         countItems: function() {
           return _zooData.length;
+        },
+        hasTrophy: function(index) {
+          return isUndefinedOrNull(_zooData[index].qrChecked);
         }
       };
       animalList.refresh();
@@ -64,20 +68,32 @@
       if (!isUndefinedOrNull(data) && !isUndefinedOrNull(data.name)) {
         animalName = data.name;
       }
-      _zooData.forEach(function(animal) {
-        if (animal.jpName === animalName) {
-          $('#title')[0].innerText = animal.jpName;
-          $('#photo').attr('src', animal.urlPhoto);
-          $('#urlWiki').attr('href', animal.urlWiki);
-          $('#jpName')[0].innerText = animal.jpName;
-          $('#enName')[0].innerText = animal.enName;
-          $('#zlName')[0].innerText = animal.zlName;
-          var classified = animal.class + ' ' + animal.order + ' ' + animal.family;
-          $('#classified')[0].innerText = classified;
-          $('#description')[0].innerText = animal.description;
-          return;
-        }
-      });
+      
+      setTimeout(function() {
+        for (var i = 0; i < _zooData.length; i++) {
+          var animal = _zooData[i];
+          if (animal.jpName === animalName) {
+            if (isUndefinedOrNull(data.qrChecked)) {
+              animal.qrChecked = new Date();
+            }
+            $('#title')[0].innerText = animal.jpName;
+            $('#photo').attr('src', animal.urlPhoto);
+            $('#urlWiki').attr('href', animal.urlWiki);
+            $('#jpName')[0].innerText = animal.jpName;
+            $('#enName')[0].innerText = animal.enName;
+            $('#zlName')[0].innerText = animal.zlName;
+            var classified = animal.class + ' ' + animal.order + ' ' + animal.family;
+            $('#classified')[0].innerText = classified;
+            $('#description')[0].innerText = animal.description;
+            if (!isUndefinedOrNull(animal.qrChecked)) {
+              $("#trophy").css("visibility", "visible");
+            } else {
+              $("#trophy").css("visibility", "hidden");
+            }
+            return;
+          }
+        };
+      },1000);
       console.log("detail >>");
     },
 
@@ -233,6 +249,7 @@ function myPushPage(page, option) {
       // QRスキャンで来たときはオブジェクトで渡される
       animalName = option.name;
       method = option.method;
+      options.data.qr = true;
     } else if (typeof option === 'string') {
       // 動物リストをクリックされたときは動物名が直接渡される
       animalName = option.trim();
@@ -240,11 +257,11 @@ function myPushPage(page, option) {
     options.data = {name: animalName};
   }
   var nav = document.querySelector('#navigator');
-  if (method === "bringPageTop") {
+  //if (method === "bringPageTop") {
     nav.bringPageTop(page, options);
-  } else {
-    nav.pushPage(page, options);
-  }
+  //} else {
+  //  nav.pushPage(page, options);
+  //}
   console.log('myPushPage >>');
 }
 

@@ -92,6 +92,18 @@
   color: #663300;
   text-shadow: 1px 1px 4px #422;
 }
+.bookTrophy {
+  position: absolute;
+  right: 1em;
+  height: 1em;
+  top: 0px;
+  bottom: 0px;
+  margin: auto;
+  visibility: hidden;
+}  
+.bookTrophy:before {
+  content: "\f091";
+}
 
 /* detail */
 #detail div p {
@@ -102,6 +114,9 @@
   font-size: 24px;
   margin-left: 0.5em;
   margin-right: 0.5em;
+}
+#trophy {
+  margin-left: 1em;
 }
 
 /* QRscan */
