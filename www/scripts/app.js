@@ -1,12 +1,23 @@
 // This is a JavaScript file
 
+/**
+   * デバッグモード
+   * @private
+   */
+  var _useDebug = true;
+  
+  /**
+   * HASHのsalt
+   * @property {String}
+   */
+  var shaSalt = "QRcodeGenerator";
+  
+
 (function() {
   /**
    * @pravate {object} 読み込んだ動物データを保持する
    */
   var _zooData = [];
-  
-  var _useDebug = true;
   
   /**
    * @private {object} ページリスト
@@ -46,23 +57,28 @@
     /**
      * 動物詳細情報
      */
-    detail: function() {
-      setTimeout(function() {
-        _zooData.forEach(function(animal) {
-          if (animal.jpName === selectedAnimal) {
-            $('#title')[0].innerText = animal.jpName;
-            $('#photo').attr('src', animal.urlPhoto);
-            $('#urlWiki').attr('href', animal.urlWiki);
-            $('#jpName')[0].innerText = animal.jpName;
-            $('#enName')[0].innerText = animal.enName;
-            $('#zlName')[0].innerText = animal.zlName;
-            var classified = animal.class + ' ' + animal.order + ' ' + animal.family;
-            $('#classified')[0].innerText = classified;
-            $('#description')[0].innerText = animal.description;
-            return;
-          }
-        });
-      }, 100);
+    detail: function(data) {
+      console.log("detail <<");
+      console.dir(data);
+      var animalName;
+      if (!isUndefinedOrNull(data) && !isUndefinedOrNull(data.name)) {
+        animalName = data.name;
+      }
+      _zooData.forEach(function(animal) {
+        if (animal.jpName === animalName) {
+          $('#title')[0].innerText = animal.jpName;
+          $('#photo').attr('src', animal.urlPhoto);
+          $('#urlWiki').attr('href', animal.urlWiki);
+          $('#jpName')[0].innerText = animal.jpName;
+          $('#enName')[0].innerText = animal.enName;
+          $('#zlName')[0].innerText = animal.zlName;
+          var classified = animal.class + ' ' + animal.order + ' ' + animal.family;
+          $('#classified')[0].innerText = classified;
+          $('#description')[0].innerText = animal.description;
+          return;
+        }
+      });
+      console.log("detail >>");
     },
 
     /**
@@ -115,7 +131,9 @@
       function scanBarcode() {
         if (_useDebug) {
           var qrValue = {
-            text: "projectName=Utsunomiya&projectVersion=1.0&projectType=animal&itemId=lion&hash=aae60e5174462fbef17d4dbe4d0e34dc96b93d38",
+            // text: "projectName=Utsunomiya&projectVersion=1.0&projectType=animal&itemId=ライオン&hash=6f328928900b3000925be62fde1f72ebc83ce3a1",
+            text: "projectName=Utsunomiya&projectVersion=1.0&projectType=animal&itemId=シロテテナガザル&hash=1367b2342b348b4b4f7ff43c8e7d969edb877dc0",
+            // text: "projectName=Test",
             format: "xx",
             cancelled: ""
           };
@@ -145,34 +163,37 @@
     }
   };
 
+  /**
+   * 結果をデコードする
+   */
   function decodeQrCode(scanedValue) {
     // 結果をデコードする
     var qrArray = scanedValue.text.split(/&/g);
+    var kvPair = [];
     qrArray.forEach(function(keyValue) {
-      var args = keyValue.split(/=/);
-      console.log(args[0] + " = " + args[1]);
+      var kv = keyValue.split(/=/);
+      var key = kv[0];
+      var value = kv[1];
+      kvPair[key] = value;
     });
-    // projectName
-    // projectVersion
-    // projectType
-    // itemId
-    // hash
-    console.dir(qrArray);
-            
-    // 結果テキストを表示する
-    $('#qrResultMessage').text(scanedValue.text);
-  
-    // URLならばブラウザでひらくボタンを表示する
-//    if (result.text.indexOf('http') === 0) {
-//      $('#qrBrowserOpenButton').show();
-//    } else {
-//      $('#qrBrowserOpenButton').hide();
-//    }
+    console.dir(kvPair);
+    
+    // パラメータチェック
+    if (!checkParameters(kvPair)) {
+      // QRコード不正
+      ons.notification.alert("QRコードが読み取れませんでした");
+    }
+      
+    // 動物詳細へジャンプ
+    var animal = kvPair['itemId'];
+    myPushPage("detail.html", {method: "bringPageTop", name: animal});
+    
   }
   
   // addEventListener("init") の前に実行することで android 用のスタイル適用を
   // 抑止できるチートらしいが、ons なんか知らないと怒られる
   // ons.disableAutoStyling();
+
   
   // Page init event
   // ページ遷移ごとに実行される  
@@ -189,17 +210,11 @@
 
     // 各ページごとにコントローラを設定する
     var page = event.target;
-    _pageList[page.id]();
+    _pageList[page.id](page.data);
       
     console.log('init >>');
   });
 })();
-
-/**
- * 選択された動物名を記録する
- * @type {string}
- */
-var selectedAnimal = null;
 
 /**
  * pushPageの代替
@@ -208,16 +223,86 @@ var selectedAnimal = null;
  */
 function myPushPage(page, option) {
   console.log('myPushPage ' + page + ', ' + option + ' <<');
-  var options;
-  if (!isUndefinedOrNull(option) && (typeof option === 'string')) {
-    // すごくダサいけれど選択された動物をグローバル変数に記憶する
-    selectedAnimal = option.trim();
+  
+  var options = {};
+  var method = "pushPage";
+  var animalName;
+  
+  if (!isUndefinedOrNull(option)) {
+    if (typeof option === "object") {
+      // QRスキャンで来たときはオブジェクトで渡される
+      animalName = option.name;
+      method = option.method;
+    } else if (typeof option === 'string') {
+      // 動物リストをクリックされたときは動物名が直接渡される
+      animalName = option.trim();
+    }
+    options.data = {name: animalName};
   }
   var nav = document.querySelector('#navigator');
-  nav.pushPage(page, options);
+  if (method === "bringPageTop") {
+    nav.bringPageTop(page, options);
+  } else {
+    nav.pushPage(page, options);
+  }
   console.log('myPushPage >>');
 }
 
+/**
+ * パラメータチェック
+ * @param {Array} params  チェックするパラメータ
+ * @return {Boolean}      パラメータが正しいときに true
+ */
+function checkParameters(params) {
+  var result = true;
+  
+  // projectName
+  var projectName = params['projectName'];
+  if (isUndefinedOrNull(projectName))
+    return false;
+  if (projectName !== "Utsunomiya")
+    return false;
+
+  // projectType
+  var projectType = params['projectType'];
+  if (isUndefinedOrNull(projectType))
+    return false;
+  
+  // projectVersion
+  var projectVersion = params['projectVersion'];
+  if (isUndefinedOrNull(projectVersion))
+    return false;
+  var version = Number(projectVersion);
+  if (version < 2.0) {
+    // animalのみ  
+    if (projectType !== 'animal')
+      return false;
+  }
+  
+  // itemId
+  var itemId = params['itemId'];
+  if (isUndefinedOrNull(itemId))
+    return false;
+  
+  // hash
+  var paramHash = params['hash'];
+  if (isUndefinedOrNull(paramHash))
+    return false;
+  var hashStr = "projectName=" + projectName +
+                "&projectVersion=" + projectVersion +
+                "&projectType=" + projectType +
+                "&itemId=" + itemId;
+  var hashObj = new jsSHA("SHA-1", "TEXT");
+  hashObj.update(shaSalt);
+  hashObj.update(encodeURI(hashStr));
+  var getHash = hashObj.getHash("HEX");
+  console.log("paramHash = " + paramHash);
+  console.log("getHash = " + getHash);
+  if (paramHash !== getHash)
+    return false;
+  
+  return true;
+}
 
 /**
  * null チェック
