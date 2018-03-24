@@ -12,7 +12,6 @@
   <link rel="stylesheet" href="lib/onsenui/css/onsenui.css">
   <link rel="stylesheet" href="lib/onsenui/css/onsen-css-components.css">
   <link rel="stylesheet" href="css/style.css">
-  <link rel="stylesheet" type="text/css" href="path/to/onsen-css-components.css">
 
   <!-- QRscan -->
   <script src="lib/zepto.js"></script>
@@ -38,14 +37,16 @@
         </div>
       </ons-toolbar>
 
-<!-- ロゴ画像 -->
-<center><img src="assets/image/header_logo.png" class="logo_pct"></center>
+      <!-- ロゴ画像 -->
+      <center>
+        <img src="assets/image/header_logo.png" class="logo_pct">
+      </center>
 
       <!-- メニュー -->
       <ons-list modifier="menu">
         <ons-list-item>
           <ons-button modifier="large" class="myMenu" onclick="myPushPage('map.html')">
-          <!--ons-icon icon="fa-map-marker" fixed-width="true" class="menuIcon"></ons-icon-->
+            <!--ons-icon icon="fa-map-marker" fixed-width="true" class="menuIcon"></ons-icon-->
             <img src="assets/image/icon_map.png" class="mini_icon">
             えんないＭＡＰ
           </ons-button>
@@ -67,15 +68,15 @@
         <ons-list-item>
           <!--ons-button modifier="large" onclick="window.open('https://ameblo.jp/utsunomiyazoo/')" class="main_btn"-->
           <ons-button modifier="large" class="myMenu" onclick="myPushPage('blog.html')">
-          <!--ons-icon icon="fa-commenting-o" fixed-width="true" class="menuIcon"></ons-icon-->
+            <!--ons-icon icon="fa-commenting-o" fixed-width="true" class="menuIcon"></ons-icon-->
             <img src="assets/image/icon_blog.png" class="mini_icon">
             しいくいんブログ
           </ons-button>
         </ons-list-item>
         <ons-list-item>
           <ons-button modifier="large" class="myMenu" onclick="myPushPage('help.html')">
-          <!--ons-icon icon="fa-info-circle" fixed-width="true" class="menuIcon"></ons-icon-->
-            <img src="assets/image/icon_info.png" class="mini_icon"-->
+            <!--ons-icon icon="fa-info-circle" fixed-width="true" class="menuIcon"></ons-icon-->
+            <img src="assets/image/icon_info.png" class="mini_icon">
             おとなのかたへ
           </ons-button>
         </ons-list-item>
@@ -88,13 +89,14 @@
         </ons-list-item>
       </ons-list>
 
-<footer id="footer">
-    <center><img src="assets/image/footer_pic.png" width="95%" height="auto" border="none">
-        <a href="http://araten.co.jp/" target="_blank">©ARATEN 2018</a>
-    </center>
-</footer>
+      <footer id="footer">
+        <center>
+          <img src="assets/image/footer_pic.png" width="95%" height="auto" border="none">
+          <a href="http://araten.co.jp/" target="_blank">©ARATEN 2018</a>
+        </center>
+      </footer>
 
-</ons-page>
+    </ons-page>
   </ons-template>
 </body>
 </html>

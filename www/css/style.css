@@ -1,8 +1,10 @@
-
+@charset "UTF-8";
+/* colors */
 /* ツールバー */
 .toolbar--toolbar {
   background-color: #552200;
 }
+
 .toolbar--toolbar__center,
 .toolbarIcon,
 .back-button--toolbar,
@@ -10,54 +12,63 @@
   color: white;
   text-shadow: 0 2px 0 #444;
 }
+
 .back-button--toolbar__icon {
   fill: white;
 }
+
 .toolbar--toolbar__center {
   font-weight: 400;
 }
+
 .toolbarIcon {
   font-size: 24px;
 }
 
 /* page */
 .page--bgImage__background {
-  background-image: url('../assets/image/bg_check.png');
+  background-image: url("../assets/image/bg_check.png");
   background-size: auto;
 }
 
 /* menu */
 .menuIcon {
-    font-size: 22px;
-    text-shadow: 0 2px 0 #000;
+  font-size: 22px;
+  text-shadow: 0 2px 0 #000;
 }
+
 .list--menu {
   margin: 0;
   padding: 0;
   border: none;
-  background-color: rgba(0,0,0.0);
+  background-color: rgba(0, 0, 0, 0.5);
   display: inline;
 }
+
 /* menu buttons */
 .list-item--menu {
   /*  margin: 0 0 -1px 0;*/
-    margin: 0 auto 0;
-    color: #1f1f21;
+  margin: 0 auto 0;
+  color: #1f1f21;
+  transition: background-color 0.2s linear;
   -webkit-transition: background-color 0.2s linear;
-/*    background-color: rgba(212,212,0,0.32);*/
-/* ここ(2018.02.07)*/
-/*    background-color: rgba(212,212,0,0.32);
+  /*    background-color: rgba(212,212,0,0.32);*/
+  /* ここ(2018.02.07)*/
+  /*    background-color: rgba(212,212,0,0.32);
     background-color: red;
     border-radius: 16px;
     box-shadow: 2px 2px;
     background-color: cyan;*/
 }
+
 .list-item__left--menu {
-  border:none;
+  border: none;
 }
+
 .list-item--menu__center {
-  padding:0;
+  padding: 0;
 }
+
 /* book */
 .animalListDiv {
   margin: 1px 0px;
@@ -65,33 +76,36 @@
   width: 100%;
   height: 100%;
   display: inline-flex;
-  background-color: #e9e496;
+  background-color: #E9E496;
   box-sizing: border-box;
   box-shadow: 2px 1px 8px #442;
   border-radius: 8px;
   -webkit-border-radius: 8px;
   -moz-border-radius: 8px;
 }
+
 .thumbnail {
   border-radius: 8px;
   -webkit-border-radius: 8px;
   -moz-border-radius: 8px;
   width: 64px;
   height: 64px;
-  background-color: #ca8e3e;
+  background-color: #CA8E3E;
   margin-right: 1em;
   margin-left: 0.5em;
   padding: 1px;
   background-color: #663300;
-  border: dashed 1px #e4c69e;
-  box-shadow: 1px 1px 8px 2px rgba(0,0,0,0.4);
+  border: dashed 1px #E4C69E;
+  box-shadow: 1px 1px 8px 2px rgba(0, 0, 0, 0.4);
 }
+
 .animalListName {
   font-size: 22px;
   line-height: 72px;
   color: #663300;
   text-shadow: 1px 1px 4px #422;
 }
+
 .bookTrophy {
   position: absolute;
   right: 1em;
@@ -100,7 +114,8 @@
   bottom: 0px;
   margin: auto;
   visibility: hidden;
-}  
+}
+
 .bookTrophy:before {
   content: "\f091";
 }
@@ -110,11 +125,13 @@
   margin-left: 0.5em;
   margin-right: 0.5em;
 }
+
 #detail div p.jpName {
   font-size: 24px;
   margin-left: 0.5em;
   margin-right: 0.5em;
 }
+
 #trophy {
   margin-left: 1em;
 }
@@ -126,6 +143,7 @@
   color: #222;
   padding: 10px;
 }
+
 #qrResultMessage {
   margin: 20px 0;
   padding: 10px;
@@ -133,37 +151,37 @@
 }
 
 /*  ロゴ(2018.02.08) */
-.logo_pct{
-    margin: 0;
-    padding: 0;
-    width: 100%;
-    height: auto;
-    display: inline-block;
-/*    background-color: blue;*/
+.logo_pct {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: auto;
+  display: inline-block;
+  /*    background-color: blue;*/
 }
 
 /*  文字前アイコン設定(2018.02.08)*/
-.mini_icon{
-    width: 24px;
-    height: 24px;
-    margin-top: auto;
-    margin-bottom: auto;
-    padding: 0 6px 0;
-    display: inline-block;
-    vertical-align: middle;
-    /*background-color: red;*/
+.mini_icon {
+  width: 24px;
+  height: 24px;
+  margin-top: auto;
+  margin-bottom: auto;
+  padding: 0 6px 0;
+  display: inline-block;
+  vertical-align: middle;
+  /*background-color: red;*/
 }
 
 /* 飼育員ブログ(2018.02.08) */
-.Keepersblog{
-    width: 100%;
-    height: 100%;
+.Keepersblog {
+  width: 100%;
+  height: 100%;
 }
 
 /* 公式ホームページ(2018.02.13) */
-.homepage{
-    width: 100%;
-    height: 100%;
+.homepage {
+  width: 100%;
+  height: 100%;
 }
 
 /* 埋め込み地図(2018.02.13)
@@ -174,11 +192,11 @@
     height: auto;
     display: inline-block;
 } */
-
 /* 園内マップ */
 #zooMap {
   position: absolute;
 }
+
 ons-gesture-detector {
   position: absolute;
   top: 0px;
@@ -186,147 +204,248 @@ ons-gesture-detector {
   right: 0px;
   bottom: 0px;
 }
+
 /* footer(2018.02.07) */
-#footer{
-    margin: 0;
-    padding: 0;
-    font-size: 18px;
-    color: #a37d1d;
-}
-#footer a:link{
-    color: #a37d1d;
-    text-decoration: none;
-}
-#footer a:visited{
-    color: #a37d1d;
-    text-decoration: none;
-}
-#footer a:hover{
-    color: #a37d1d;
-    text-decoration: none;
-}
-#footer a:activ{
-    color: white;
-    text-decoration: none;
-}
-#footer img{
-    margin: 0px;
-    padding: 0;
-    border: none;
+#footer {
+  margin: 0;
+  padding: 0;
+  font-size: 18px;
+  color: #a37d1d;
 }
 
+#footer a:link {
+  color: #a37d1d;
+  text-decoration: none;
+}
+
+#footer a:visited {
+  color: #a37d1d;
+  text-decoration: none;
+}
+
+#footer a:hover {
+  color: #a37d1d;
+  text-decoration: none;
+}
+
+#footer a:activ {
+  color: white;
+  text-decoration: none;
+}
+
+#footer img {
+  margin: 0px;
+  padding: 0;
+  border: none;
+}
 
 /* 料金表テーブル用 */
-#fee_title{
-    margin: 8px;
-    padding: 2px 10px;
-    width: 80%;
-    height: auto;
-    font-size: 22px;
-    color: white;
-    background: #552200;
-   border: dashed 1px white;
+.fee_title {
+  margin: 8px;
+  padding: 2px 10px;
+  width: 80%;
+  height: auto;
+  font-size: 22px;
+  color: white;
+  background: #552200;
+  border: dashed 1px white;
 }
-#fee table{
-    margin: 0;
-    padding: 0;
+
+/*
+table {
+    .fee {
+        width: 100%;
+        height: auto;
+        border: solid 1px $brown520;
+        background: cream;
+    }
+}
+tr {
+    .fee {
+        border: dotted 1px $red552000;
+    }
+}
+th {
+    .fee {
+        // margin: 0;
+        padding: 12px 4px;
+        color: white;
+        font: {
+            size: 12px;
+            weight: 600;
+        }
+        // font-size: 12px;    
+        // font-weight: 600;
+        text-align: center;
+        background-color: $brown520;
+        border: dashed 1px $white;
+    }
+}
+td {
+    .fee {
+        // margin: 0;
+        padding: 10px 4px;
+        text-align: center;
+        color: $brown520;
+        font: {
+            size: 11px;
+            weight: 600;
+        }
+        // font-size: 11px;    
+        // font-weight: 600;
+        background-color: lightyellow;
+        border: {
+            top: none;
+            right: dashed 1px $brown520;
+            left: none;
+            bottom: dashed 1px $brown520;
+        }
+        // border-top: none;
+        // border-right: dashed 1px $brown520;
+        // border-left: none;
+        // border-bottom: dashed 1px $brown520;
+    }
+}
+*/
+.fee {
+  margin: 0;
+  padding: 0;
+}
+
+.fee table {
   width: 100%;
-	height: auto;
-	border: solid 1px #552200;
-	background: cream;
-	}
-#fee tr{
-	margin: 0;
-	padding: 0;
-    border: dotted 1px #552000;
+  height: auto;
+  border: solid 1px #552200;
+  background: cream;
 }
-#fee th{
-	margin: 0;
-	padding: 12px 4px;
-	color: white;
-    font-size: 12px;    
-    font-weight: 600;
-	text-align: center;
-	background-color: #552200;
-	border: dashed 1px #FFFFFF;
-	}
-#fee td{
-	margin: 0;
-	padding: 10px 4px;
-	text-align: center;
-	color: #552200;
-    font-size: 11px;    
-    font-weight: 600;
-	background-color: lightyellow;
-	border-top: none;
-	border-right: dashed 1px #552200;
-	border-left: none;
-	border-bottom: dashed 1px #552200;
-	}
-.Fee2 table{
-    width: 90%;
-    height: auto;
+
+.fee tr {
+  border: dotted 1px #552000;
 }
-.Fee2 td{
-    margin: 0;
-    padding: 0 2px;
-    color: #552200;
-    font-size: 11px;
-    font-weight: 600;
+
+.fee th {
+  padding: 12px 4px;
+  color: white;
+  font-size: 12px;
+  font-weight: 600;
+  text-align: center;
+  background-color: #552200;
+  border: dashed 1px #FFFFFF;
+}
+
+.fee td {
+  padding: 10px 4px;
+  text-align: center;
+  color: #552200;
+  font-size: 11px;
+  font-weight: 600;
+  background-color: lightyellow;
+  border-top: none;
+  border-right: dashed 1px #552200;
+  border-left: none;
+  border-bottom: dashed 1px #552200;
+}
+
+.fee td.subtitle {
+  background-color: #FFFF99;
+}
+
+ul.fee2 {
+  padding-right: 1em;
+}
+
+ul.fee2 li {
+  list-style-type: none;
+  color: #552200;
+  font-size: 11px;
+  font-weight: 600;
+}
+
+ul.fee2 li.dot::before {
+  content: "●";
+  margin-left: -1em;
+  width: 1em;
+}
+
+ul.fee2 li.kome::before {
+  content: "※";
+  margin-left: -1em;
+  width: 1em;
+}
+
+ul.fee2 li.star::before {
+  content: "＊";
+  margin-left: -1em;
+  width: 1em;
+}
+
+.clearfix {
+  min-height: 1px;
+}
+
+.clearfix::after {
+  display: block;
+  clear: both;
+  height: 0px;
+  visibility: hidden;
+  content: ".";
 }
 
 /* おたのしみページ用 */
-#fee_title2{
-    margin: 8px;
-    padding: 2px 10px;
-    width: 75%;
-    height: auto;
-    font-size: 22px;
-    color: white;
-    background: #ca8e3e;
-    border: dashed 1px #552200;
-    border-radius: 10px;
-    text-shadow: 2px 2px 3px #552200;
+#fee_title2 {
+  margin: 8px;
+  padding: 2px 10px;
+  width: 75%;
+  height: auto;
+  font-size: 22px;
+  color: white;
+  background: #CA8E3E;
+  border: dashed 1px #552200;
+  border-radius: 10px;
+  text-shadow: 2px 2px 3px #552200;
 }
-#event table{
-    margin: 0;
-    padding: 0;
-    width: 80%;
-	height: auto;
-	}
-#event th{
-	margin: 0;
-	padding: 8px;
-	color: white;
-    font-size: 12px;    
-    font-weight: 600;
-	text-align: center;
-	background-color: #ca8e3e;
-    text-shadow: 1px 1px 2px #441100;
-    border: dashed 1px #552200;
-	}
-#event td{
-	margin: 0;
-    padding: 8px;
-	text-align: center;
-	color: #552200;
-    font-size: 11px;    
-    font-weight: 600;
-    background-color: #FFFF99;
-    border: dashed 1px #552200;
-    text-align: left;
-	}
+
+#event table {
+  margin: 0;
+  padding: 0;
+  width: 80%;
+  height: auto;
+}
+
+#event th {
+  margin: 0;
+  padding: 8px;
+  color: white;
+  font-size: 12px;
+  font-weight: 600;
+  text-align: center;
+  background-color: #CA8E3E;
+  text-shadow: 1px 1px 2px #441100;
+  border: dashed 1px #552200;
+}
+
+#event td {
+  margin: 0;
+  padding: 8px;
+  text-align: center;
+  color: #552200;
+  font-size: 11px;
+  font-weight: 600;
+  background-color: #FFFF99;
+  border: dashed 1px #552200;
+  text-align: left;
+}
 
 .myMenu {
-  padding:4px 12px;
+  padding: 4px 12px;
   text-shadow: 0 2px 0 #444;
   font-size: 20px;
   line-height: 36px;
-  background-color: rgb(187, 147, 62);
-  border-top: solid 2px rgb(228, 199, 146);
-  border-left: solid 2px rgb(228, 199, 146);
-  border-bottom: solid 2px rgb(0, 0, 0);
-  border-bottom: solid 2px rgb(0, 0, 0);
+  background-color: #bb933e;
+  border-top: solid 2px #e4c792;
+  border-left: solid 2px #e4c792;
+  border-bottom: solid 2px #000;
+  border-bottom: solid 2px #000;
   border-radius: 16px;
 }
 
@@ -334,6 +453,8 @@ ons-gesture-detector {
 ons-list-item.list-item {
   padding-left: 0px;
 }
+
 .list-item__center {
   padding: 0;
 }
+/*# sourceMappingURL=style.css.map */
