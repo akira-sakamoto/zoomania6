@@ -1,6 +1,6 @@
 // This is a JavaScript file
 
-/**
+  /**
    * デバッグモード
    * @private
    */
@@ -12,6 +12,11 @@
    */
   var shaSalt = "QRcodeGenerator";
   
+  /**
+   * QRログ
+   *    24時にリセットされる
+   */
+  var qrLog = null;
 
 (function() {
   /**
@@ -26,7 +31,27 @@
     animalName: '',
 
     menu: function() {
-      console.log('_pageList.menu');
+      console.log('_pageList.menu <<');
+      // 動物データ読み込み
+      if (_zooData.length === 0) {
+        $.getJSON('assets/zoodata.json', function(data) {
+          _zooData = data;
+          console.log('zoodata is loaded');
+        });
+      }
+      // QRログデータ読み込み
+      // if (isUndefinedOrNull(qrLog)) {
+      //   // ローカルストレージから読み込む
+      //   var storage = windows.localStorage;
+      //   var log = storage.getItem("qrLog");
+      //   if (!isUndefined(log)) {
+      //     qrLog = log;
+      //   } else {
+      //     qrLog = {};
+      //   }
+      // }
+
+      console.log('_pageList.menu >>');
     },
     
     book: function() {
@@ -63,7 +88,7 @@
      */
     detail: function(data) {
       console.log("detail <<");
-      console.dir(data);
+      console.log(data);
       var animalName;
       if (!isUndefinedOrNull(data) && !isUndefinedOrNull(data.name)) {
         animalName = data.name;
@@ -132,6 +157,33 @@
     },
 
     /**
+     * おたのしみ
+     */
+    pleasure: function() {
+      console.log("_pageList.pleasure <<");
+      var checked_animal = checkedAnimals();
+      $("#checked_animals").text(checked_animal);
+      $("#total_animals").text(_zooData.length);
+      console.log("_pageList.pleasure >>");
+    },
+
+    /**
+     * 飼育員ブログ
+     */
+    blog: function() {
+      console.log("_pageList.blog <<");
+      console.log("_pageList.blog >>");
+    },
+
+    /**
+     * ホームページ
+     */
+    homepage: function() {
+      console.log("_pageList.homepage <<");
+      console.log("_pageList.homepage >>");
+    },
+
+    /**
      * QRコードスキャン
      */
     qrscan: function() {
@@ -197,7 +249,7 @@
       var value = kv[1];
       kvPair[key] = value;
     });
-    console.dir(kvPair);
+    console.log(kvPair);
     
     // パラメータチェック
     if (!checkParameters(kvPair)) {
@@ -210,6 +262,18 @@
     myPushPage("detail.html", {method: "bringPageTop", name: animal});
     
   }
+
+  /**
+   * QRコードでチェックした動物数をカウントする
+   * @return {Number} QRコードでチェックした動物数を返す
+   */
+  function checkedAnimals() {
+    var sum = 0;
+    for (var i = 0; i < _zooData.length; i++) {
+      sum++;
+    }
+    return sum;
+  }
   
   // addEventListener("init") の前に実行することで android 用のスタイル適用を
   // 抑止できるチートらしいが、ons なんか知らないと怒られる
@@ -221,14 +285,6 @@
   document.addEventListener('init', function(event) {
     console.log('init <<');
     
-    // 動物データ読み込み
-    if (_zooData.length === 0) {
-      $.getJSON('assets/zoodata.json', function(data) {
-        _zooData = data;
-        console.log('zoodata is loaded');
-      });
-    }
-
     // 各ページごとにコントローラを設定する
     var page = event.target;
     _pageList[page.id](page.data);

@@ -1,0 +1,445 @@
+/* colors */
+$black000: #000;
+$black222: #222;
+$gray444: #444;
+$grayCCC: #CCC;
+$brown520:  #552200;
+$brown663300:   #663300;
+$blue1F1F21:    #1f1f21;
+$yellow442:     #442;
+$yellowE9E496:  #E9E496;
+$yellowFFFF99:  #FFFF99;
+$orangeA37D1D:  #a37d1d;
+$orangeCA8E3E:  #CA8E3E;
+$orangeE4C69E:  #E4C69E;
+$orangeBB933E:  rgb(187, 147, 62);
+$orangeE4C792:  rgb(228, 199, 146);
+$red422:        #422;
+$red441100:     #441100;
+$red552000:     #552000;
+$redF33:        #FF3333;
+$white:         #FFFFFF;
+
+/* ツールバー */
+@mixin toolbarIcon {
+    color: white;
+    text-shadow: 0 2px 0 $gray444;
+}
+
+.toolbar--toolbar {
+    background-color: $brown520;
+}
+.toolbar--toolbar__center,
+.toolbarIcon,
+.back-button--toolbar,
+.back-button--toolbar__label {
+    @include toolbarIcon;
+}
+
+.back-button--toolbar__icon {
+  fill: white;
+}
+.toolbar--toolbar__center {
+  font-weight: 400;
+}
+.toolbarIcon {
+  font-size: 24px;
+}
+
+/* page */
+.page--bgImage__background {
+  background-image: url('../assets/image/bg_check.png');
+  background-size: auto;
+}
+
+/* menu */
+.menuIcon {
+    font-size: 22px;
+    text-shadow: 0 2px 0 $black000; // #000
+}
+.list--menu {
+  margin: 0;
+  padding: 0;
+  border: none;
+  background-color: rgba(0,0,0,0.5);
+  display: inline;
+}
+/* menu buttons */
+.list-item--menu {
+  /*  margin: 0 0 -1px 0;*/
+    margin: 0 auto 0;
+    color: $blue1F1F21; // #1f1f21;
+    transition: background-color 0.2s linear;
+    -webkit-transition: background-color 0.2s linear;
+/*    background-color: rgba(212,212,0,0.32);*/
+/* ここ(2018.02.07)*/
+/*    background-color: rgba(212,212,0,0.32);
+    background-color: red;
+    border-radius: 16px;
+    box-shadow: 2px 2px;
+    background-color: cyan;*/
+}
+.list-item__left--menu {
+  border:none;
+}
+.list-item--menu__center {
+  padding:0;
+}
+/* book */
+.animalListDiv {
+  margin: 1px 0px;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  display: inline-flex;
+  background-color: $yellowE9E496;  // #e9e496;
+  box-sizing: border-box;
+  box-shadow: 2px 1px 8px $yellow442;   // #442;
+  border-radius: 8px;
+  -webkit-border-radius: 8px;
+  -moz-border-radius: 8px;
+}
+.thumbnail {
+  border-radius: 8px;
+  -webkit-border-radius: 8px;
+  -moz-border-radius: 8px;
+  width: 64px;
+  height: 64px;
+  background-color: $orangeCA8E3E;
+  margin-right: 1em;
+  margin-left: 0.5em;
+  padding: 1px;
+  background-color: $brown663300;
+  border: dashed 1px $orangeE4C69E;
+  box-shadow: 1px 1px 8px 2px rgba(0,0,0,0.4);
+}
+.animalListName {
+  font-size: 22px;
+  line-height: 72px;
+  color: $brown663300;
+  text-shadow: 1px 1px 4px $red422;
+}
+.bookTrophy {
+  position: absolute;
+  right: 1em;
+  height: 1em;
+  top: 0px;
+  bottom: 0px;
+  margin: auto;
+  visibility: hidden;
+}  
+.bookTrophy:before {
+  content: "\f091";
+}
+
+/* detail */
+#detail div p {
+  margin-left: 0.5em;
+  margin-right: 0.5em;
+}
+#detail div p.jpName {
+  font-size: 24px;
+  margin-left: 0.5em;
+  margin-right: 0.5em;
+}
+#trophy {
+  margin-left: 1em;
+}
+
+/* QRscan */
+.qrBody {
+  font-size: 90%;
+  text-align: center;
+  color: $black222;
+  padding: 10px;
+}
+#qrResultMessage {
+  margin: 20px 0;
+  padding: 10px;
+  border: 1px solid $grayCCC;
+}
+
+/*  ロゴ(2018.02.08) */
+.logo_pct{
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: auto;
+    display: inline-block;
+/*    background-color: blue;*/
+}
+
+/*  文字前アイコン設定(2018.02.08)*/
+.mini_icon{
+    width: 24px;
+    height: 24px;
+    margin-top: auto;
+    margin-bottom: auto;
+    padding: 0 6px 0;
+    display: inline-block;
+    vertical-align: middle;
+    /*background-color: red;*/
+}
+
+/* 飼育員ブログ(2018.02.08) */
+.Keepersblog{
+    width: 100%;
+    height: 100%;
+}
+
+/* 公式ホームページ(2018.02.13) */
+.homepage{
+    width: 100%;
+    height: 100%;
+}
+
+/* 埋め込み地図(2018.02.13)
+.infomation{
+    margin: 5px;
+    padding: 0;
+    width: auto;
+    height: auto;
+    display: inline-block;
+} */
+
+/* 園内マップ */
+#zooMap {
+  position: absolute;
+}
+ons-gesture-detector {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  right: 0px;
+  bottom: 0px;
+}
+/* footer(2018.02.07) */
+#footer{
+    margin: 0;
+    padding: 0;
+    font-size: 18px;
+    color: $orangeA37D1D;
+}
+#footer a:link{
+    color: $orangeA37D1D;
+    text-decoration: none;
+}
+#footer a:visited{
+    color: $orangeA37D1D;
+    text-decoration: none;
+}
+#footer a:hover{
+    color: $orangeA37D1D;
+    text-decoration: none;
+}
+#footer a:activ{
+    color: white;
+    text-decoration: none;
+}
+#footer img{
+    margin: 0px;
+    padding: 0;
+    border: none;
+}
+
+
+/* 料金表テーブル用 */
+.fee_title,
+.pleasure_title {
+    margin: 8px;
+    padding: 2px 10px;
+    width: 80%;
+    height: auto;
+    font-size: 22px;
+    color: white;
+    background: $brown520;
+    border: dashed 1px white;
+    border-radius: 10px;
+    box-shadow: 2px 2px 3px $brown520;
+}
+table {
+    &.fee {
+        width: 100%;
+        height: auto;
+        border: {
+            spacing: 0;
+            collapse: collapse;
+        }
+        border: solid 1px $brown520;
+        background: cream;
+        box-shadow: 2px 2px 3px $brown520;
+    }
+}
+.fee {
+    margin: 0;
+    padding: 0;
+    tr {
+        border: dotted 1px $red552000;
+    }
+    th {
+        padding: 12px 4px;
+        color: white;
+        font: {
+            size: 12px;
+            weight: 600;
+        }
+        text-align: center;
+        background-color: $brown520;
+        border: dashed 1px $white;
+    }
+    td {
+        padding: 10px 4px;
+        text-align: center;
+        color: $brown520;
+        font: {
+            size: 11px;
+            weight: 600;
+        }
+        background-color: lightyellow;
+        border: {
+            top: none;
+            right: dashed 1px $brown520;
+            left: none;
+            bottom: dashed 1px $brown520;
+        }
+        &.subtitle {
+            background-color: $yellowFFFF99;
+        }
+    }
+}
+
+ul {
+    &.fee2 {
+        padding-right: 1em;
+        li {
+            list-style-type: none;
+            color: $brown520;
+            font: {
+                size: 11px;
+                weight: 600;
+            }
+            &.dot::before {
+                content: "●";
+                margin-left: -1em;
+                width: 1em;
+            }
+            &.kome::before {
+                content: "※";
+                margin-left: -1em;
+                width: 1em;
+            }
+            &.star::before {
+                content: "＊";
+                margin-left: -1em;
+                width: 1em;
+            }
+        }    
+    }
+}
+.clearfix {
+    min-height: 1px;    // IE6,7対応 <- いらんて
+    &::after {
+        display: block;
+        clear: both;
+        height: 0px;
+        visibility: hidden;
+        content: ".";
+    }
+}
+
+img.information {
+    border: 0px;
+    width: 100%;
+    height: auto;
+    margin-bottom: 0.5em;
+}
+// .Fee2 table{
+//     width: 90%;
+//     height: auto;
+// }
+// .Fee2 td{
+//     margin: 0;
+//     padding: 0 2px;
+//     color: $brown520;
+//     font-size: 11px;
+//     font-weight: 600;
+// }
+
+/* おたのしみページ用 */
+.pleasure_title2,
+.fee_title2 {
+    margin: 8px;
+    padding: 2px 10px;
+    width: 75%;
+    height: auto;
+    font-size: 22px;
+    color: white;
+    background: $orangeCA8E3E;
+    border: dashed 1px $brown520;
+    border-radius: 10px;
+    text-shadow: 2px 2px 3px $brown520;
+    box-shadow: 2px 2px 3px $brown520;
+}
+.annotation {
+    color: $gray444;
+    font-size: 14px;
+}
+
+table {
+    &.event {
+        margin: 0;
+        padding: 0;
+        width: 80%;
+        height: auto;
+        box-shadow: 2px 2px 3px $brown520;
+    }
+}
+.event {
+    th {
+        margin: 0;
+        padding: 8px;
+        color: white;
+        font: {
+            size: 12px;
+            weight: 600;
+        }
+        text: {
+            align: center;
+            shadow: 1px 1px 2px $red441100;
+        }
+        background-color: $orangeCA8E3E;
+        border: dashed 1px $brown520;
+	}
+    td {
+        margin: 0;
+        padding: 8px;
+        font: {
+            size: 11px;
+            weight: 600;
+        }
+        text-align: center;
+        color: $brown520;
+        background-color: $yellowFFFF99;
+        border: dashed 1px $brown520;
+	}
+}
+.myMenu {
+  padding:4px 12px;
+  text-shadow: 0 2px 0 $gray444;    // #444
+  font-size: 20px;
+  line-height: 36px;
+  background-color: $orangeBB933E;  // rgb(187, 147, 62);
+  border-top: solid 2px $orangeE4C792;   // rgb(228, 199, 146)
+  border-left: solid 2px $orangeE4C792;
+  border-bottom: solid 2px $black000;   // rgb(0, 0, 0);
+  border-bottom: solid 2px $black000;   // rgb(0, 0, 0);
+  border-radius: 16px;
+}
+
+/* メニューをくっつける */
+ons-list-item.list-item {
+  padding-left: 0px;
+}
+.list-item__center {
+  padding: 0;
+}
