@@ -92,7 +92,7 @@
             }
             return;
           }
-        };
+        }
       },1000);
       console.log("detail >>");
     },
@@ -140,19 +140,24 @@
         scanBarcode();
         return false;
       });
-
+      
+      var stubCount = 0;
       /**
        * スキャンボタン押下時
        */
       function scanBarcode() {
         if (_useDebug) {
+          var stub = [
+            "projectName=Utsunomiya&projectVersion=1.0&projectType=animal&itemId=ライオン&hash=6f328928900b3000925be62fde1f72ebc83ce3a1",
+            "projectName=Utsunomiya&projectVersion=1.0&projectType=animal&itemId=シロテテナガザル&hash=1367b2342b348b4b4f7ff43c8e7d969edb877dc0",
+            "projectName=Utsunomiya&projectVersion=1.0&projectType=animal&itemId=ニホンザル&hash=9dcb507dde1b03cd87fa852a19dd9605d1dc0582"
+          ];
           var qrValue = {
-            // text: "projectName=Utsunomiya&projectVersion=1.0&projectType=animal&itemId=ライオン&hash=6f328928900b3000925be62fde1f72ebc83ce3a1",
-            text: "projectName=Utsunomiya&projectVersion=1.0&projectType=animal&itemId=シロテテナガザル&hash=1367b2342b348b4b4f7ff43c8e7d969edb877dc0",
-            // text: "projectName=Test",
             format: "xx",
             cancelled: ""
           };
+          qrValue.text = stub[stubCount];
+          stubCount = (stubCount + 1) % stub.length;
           decodeQrCode(qrValue);
         } else {
           if (window.plugins === undefined) {
@@ -201,7 +206,7 @@
     }
       
     // 動物詳細へジャンプ
-    var animal = kvPair['itemId'];
+    var animal = kvPair.itemId;
     myPushPage("detail.html", {method: "bringPageTop", name: animal});
     
   }
@@ -227,7 +232,7 @@
     // 各ページごとにコントローラを設定する
     var page = event.target;
     _pageList[page.id](page.data);
-      
+    console.log("page.id = " + page.id + ", page.data = " + page.data);
     console.log('init >>');
   });
 })();
@@ -241,6 +246,7 @@ function myPushPage(page, option) {
   console.log('myPushPage ' + page + ', ' + option + ' <<');
   
   var options = {};
+  var data = {};
   var method = "pushPage";
   var animalName;
   
@@ -249,12 +255,13 @@ function myPushPage(page, option) {
       // QRスキャンで来たときはオブジェクトで渡される
       animalName = option.name;
       method = option.method;
-      options.data.qr = true;
+      data.qr = true;
     } else if (typeof option === 'string') {
       // 動物リストをクリックされたときは動物名が直接渡される
       animalName = option.trim();
     }
-    options.data = {name: animalName};
+    data.name = animalName;
+    options.data = data;
   }
   var nav = document.querySelector('#navigator');
   //if (method === "bringPageTop") {
@@ -274,19 +281,19 @@ function checkParameters(params) {
   var result = true;
   
   // projectName
-  var projectName = params['projectName'];
+  var projectName = params.projectName;
   if (isUndefinedOrNull(projectName))
     return false;
   if (projectName !== "Utsunomiya")
     return false;
 
   // projectType
-  var projectType = params['projectType'];
+  var projectType = params.projectType;
   if (isUndefinedOrNull(projectType))
     return false;
   
   // projectVersion
-  var projectVersion = params['projectVersion'];
+  var projectVersion = params.projectVersion;
   if (isUndefinedOrNull(projectVersion))
     return false;
   var version = Number(projectVersion);
@@ -297,12 +304,12 @@ function checkParameters(params) {
   }
   
   // itemId
-  var itemId = params['itemId'];
+  var itemId = params.itemId;
   if (isUndefinedOrNull(itemId))
     return false;
   
   // hash
-  var paramHash = params['hash'];
+  var paramHash = params.hash;
   if (isUndefinedOrNull(paramHash))
     return false;
   var hashStr = "projectName=" + projectName +

@@ -217,7 +217,7 @@ ons-gesture-detector {
 
 
 /* 料金表テーブル用 */
-#fee_title{
+.fee_title{
     margin: 8px;
     padding: 2px 10px;
     width: 80%;
@@ -276,7 +276,7 @@ ons-gesture-detector {
 }
 
 /* おたのしみページ用 */
-#fee_title2{
+.fee_title2{
     margin: 8px;
     padding: 2px 10px;
     width: 75%;
@@ -288,13 +288,13 @@ ons-gesture-detector {
     border-radius: 10px;
     text-shadow: 2px 2px 3px #552200;
 }
-#event table{
+.event table{
     margin: 0;
     padding: 0;
     width: 80%;
 	height: auto;
 	}
-#event th{
+.event th{
 	margin: 0;
 	padding: 8px;
 	color: white;
@@ -305,7 +305,7 @@ ons-gesture-detector {
     text-shadow: 1px 1px 2px #441100;
     border: dashed 1px #552200;
 	}
-#event td{
+.event td{
 	margin: 0;
     padding: 8px;
 	text-align: center;
@@ -337,3 +337,30 @@ ons-list-item.list-item {
 .list-item__center {
   padding: 0;
 }
+
+/* フッタ */
+/*.left {
+  position: relative;
+  width: 33%;
+  margin-top: 0px;
+  margin-left: 0px;
+  margin-right: auto;
+}
+.center {
+  position: relative;
+  width: 33%;
+  margin-top: 0px;
+  margin-left: 0px;
+  margin-right: 0px;
+  margin: auto;
+  text-align: center;
+}
+.right {
+  position: relative;
+  width: 33%;
+  margin-top: 0px;
+  margin-left: auto;
+  margin-right: 0px;
+  
+}
+*/
