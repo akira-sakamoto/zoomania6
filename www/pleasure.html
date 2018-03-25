@@ -1,4 +1,5 @@
-<ons-page id="help" modifier="bgImage">
+<!-- おたのしみページ -->
+<ons-page id="pleasure" modifier="bgImage">
   <!-- ツールバー -->
   <ons-toolbar modifier="toolbar">
     <div class="left">
@@ -14,31 +15,31 @@
 
   <!-- 本体だよ -->
   <center>
-    <div class="fee_title">スタンプラリー</div>
-    <img src="assets/image/bingo.png" alt="イメージ画像" title="スタンプラリー台紙" width="auto" height="auto" border="none"><br/>
-    ※イメージ画像※<br/>
-    <div font-size: 14px;><b><font color="FF0000">一列コンプリートするごとに<br>動物のエサＧＥＴ！</font></b></div>
+    <div class="pleasure_title">スタンプラリー</div>
+    <img src="assets/image/bingo.png" alt="イメージ画像" title="スタンプラリー台紙" width="auto" height="auto" border="none">
+    <p class="annotation">※イメージ画像※</p>
+    <div font-size: 14px;><b><font color="#FF0000">一列コンプリートするごとに<br>動物のエサＧＥＴ！</font></b></div>
   </center>
 
   <center>
-    <div class="fee_title">図鑑コンプリート率</div>
-    <table id="fee">
+    <div class="pleasure_title">図鑑コンプリート率</div>
+    <table class="fee">
       <tr>
-        <td><big>●●●（QRコードでチェックした数）／●●●（全動物数）</big></td>
+        <td><big><span id="checked_animals">●●●</span>（QRコードでチェックした数）／<span id="total_animals">●●●</span>（全動物数）</big></td>
       </tr>
     </table>
   </center>
 
   <center>
-    <div class="fee_title">動物クイズ</div>
-    埋め込み
+    <div class="pleasure_title">動物クイズ</div>
+    <p class="annotation">埋め込み</p>
   </center>
 
   <center>
-    <div class="fee_title">イベント情報</div>
+    <div class="pleasure_title">イベント情報</div>
   </center>
   <center>
-    <div class="fee_title2"> 毎月20日はアニマルの日</div>
+    <div class="pleasure_title2"> 毎月20日はアニマルの日</div>
     <table class="event" border="0" cellpadding="0" cellspacing="2">
       <tr>
         <td colspan="2">『毎月20日はみんなで動物園に行こう！』をテーマに<br/>
@@ -97,7 +98,7 @@
   <br/>
 
   <center>
-    <div class="fee_title2">わんわんショー</div>
+    <div class="pleasure_title2">わんわんショー</div>
     <table class="event" border="0" cellpadding="0" cellspacing="2">
       <tr>
         <td colspan="2">かわいい犬たちが見せる楽しいステージ。<br/>
@@ -120,7 +121,7 @@
   <br/>
 
   <center>
-    <div class="fee_title2">犬のしつけ教室</div>
+    <div class="pleasure_title2">犬のしつけ教室</div>
     <table class="event" border="0" cellpadding="0" cellspacing="2">
       <tr>
         <td colspan="2">おねえさんと一緒に犬の正しいしつけを学ぼう！</td>
@@ -184,7 +185,7 @@
   <br/>
 
   <center>
-    <div class="fee_title2">チビッコ動物飼育体験</div>
+    <div class="pleasure_title2">チビッコ動物飼育体験</div>
     <table class="event" border="0" cellpadding="0" cellspacing="2">
       <tr>
         <td colspan="2">飼育係と一緒に、動物のお世話をしてみませんか？</td>
@@ -208,7 +209,7 @@
         <td colspan="2"><font color="#FF0000">お問い合わせ先</font><br/>
           TEL：028-665-4255<br/>
           FAX：028-665-6287<br/>
-          E-mail：info@utsunomiya-zoo.com
+          E-mail：<a href="mailto:info@utsunomiya-zoo.com">info@utsunomiya-zoo.com</a>
         </td>
       </tr>
     </table>
@@ -216,7 +217,7 @@
   <br/>
 
   <center>
-    <div class="fee_title2">紙しばい</div>
+    <div class="pleasure_title2">紙しばい</div>
     <table class="event" border="0" cellpadding="0" cellspacing="2">
       <tr>
         <td colspan="2">宇都宮動物園の動物が登場する手作り紙しばい</td>
@@ -232,7 +233,7 @@
   <br/>
 
   <center>
-    <div class="fee_title2">動物ガイド</div>
+    <div class="pleasure_title2">動物ガイド</div>
     <table class="event" border="0" cellpadding="0" cellspacing="2">
       <tr>
         <td colspan="2">動物について解説するよ！！</td>

@@ -14,9 +14,10 @@ $orangeCA8E3E:  #CA8E3E;
 $orangeE4C69E:  #E4C69E;
 $orangeBB933E:  rgb(187, 147, 62);
 $orangeE4C792:  rgb(228, 199, 146);
-$red422:    #422;
+$red422:        #422;
 $red441100:     #441100;
 $red552000:     #552000;
+$redF33:        #FF3333;
 $white:         #FFFFFF;
 
 /* ツールバー */
@@ -243,7 +244,8 @@ ons-gesture-detector {
 
 
 /* 料金表テーブル用 */
-.fee_title{
+.fee_title,
+.pleasure_title {
     margin: 8px;
     padding: 2px 10px;
     width: 80%;
@@ -251,94 +253,40 @@ ons-gesture-detector {
     font-size: 22px;
     color: white;
     background: $brown520;
-   border: dashed 1px white;
+    border: dashed 1px white;
+    border-radius: 10px;
+    box-shadow: 2px 2px 3px $brown520;
 }
-/*
 table {
-    .fee {
+    &.fee {
         width: 100%;
         height: auto;
+        border: {
+            spacing: 0;
+            collapse: collapse;
+        }
         border: solid 1px $brown520;
         background: cream;
+        box-shadow: 2px 2px 3px $brown520;
     }
 }
-tr {
-    .fee {
-        border: dotted 1px $red552000;
-    }
-}
-th {
-    .fee {
-        // margin: 0;
-        padding: 12px 4px;
-        color: white;
-        font: {
-            size: 12px;
-            weight: 600;
-        }
-        // font-size: 12px;    
-        // font-weight: 600;
-        text-align: center;
-        background-color: $brown520;
-        border: dashed 1px $white;
-    }
-}
-td {
-    .fee {
-        // margin: 0;
-        padding: 10px 4px;
-        text-align: center;
-        color: $brown520;
-        font: {
-            size: 11px;
-            weight: 600;
-        }
-        // font-size: 11px;    
-        // font-weight: 600;
-        background-color: lightyellow;
-        border: {
-            top: none;
-            right: dashed 1px $brown520;
-            left: none;
-            bottom: dashed 1px $brown520;
-        }
-        // border-top: none;
-        // border-right: dashed 1px $brown520;
-        // border-left: none;
-        // border-bottom: dashed 1px $brown520;
-    }
-}
-*/
 .fee {
     margin: 0;
     padding: 0;
-    table {
-        // margin: 0;
-        // padding: 0;
-        width: 100%;
-        height: auto;
-        border: solid 1px $brown520;
-        background: cream;
-    }
     tr {
-        // margin: 0;
-        // padding: 0;
         border: dotted 1px $red552000;
     }
     th {
-        // margin: 0;
         padding: 12px 4px;
         color: white;
         font: {
             size: 12px;
             weight: 600;
         }
-        // font-size: 12px;    
-        // font-weight: 600;
         text-align: center;
         background-color: $brown520;
         border: dashed 1px $white;
-	}
+    }
     td {
         padding: 10px 4px;
         text-align: center;
@@ -347,8 +295,6 @@ td {
             size: 11px;
             weight: 600;
         }
-        // font-size: 11px;    
-        // font-weight: 600;
         background-color: lightyellow;
         border: {
             top: none;
@@ -356,10 +302,6 @@ td {
             left: none;
             bottom: dashed 1px $brown520;
         }
-        // border-top: none;
-        // border-right: dashed 1px $brown520;
-        // border-left: none;
-        // border-bottom: dashed 1px $brown520;
         &.subtitle {
             background-color: $yellowFFFF99;
         }
@@ -404,6 +346,13 @@ ul {
         content: ".";
     }
 }
+
+img.information {
+    border: 0px;
+    width: 100%;
+    height: auto;
+    margin-bottom: 0.5em;
+}
 // .Fee2 table{
 //     width: 90%;
 //     height: auto;
@@ -417,7 +366,8 @@ ul {
 // }
 
 /* おたのしみページ用 */
-#fee_title2{
+.pleasure_title2,
+.fee_title2 {
     margin: 8px;
     padding: 2px 10px;
     width: 75%;
@@ -428,36 +378,51 @@ ul {
     border: dashed 1px $brown520;
     border-radius: 10px;
     text-shadow: 2px 2px 3px $brown520;
+    box-shadow: 2px 2px 3px $brown520;
 }
-#event table{
-    margin: 0;
-    padding: 0;
-    width: 80%;
-	height: auto;
-	}
-#event th{
-	margin: 0;
-	padding: 8px;
-	color: white;
-    font-size: 12px;    
-    font-weight: 600;
-	text-align: center;
-	background-color: $orangeCA8E3E;
-    text-shadow: 1px 1px 2px $red441100;
-    border: dashed 1px $brown520;
-	}
-#event td{
-	margin: 0;
-    padding: 8px;
-	text-align: center;
-	color: $brown520;
-    font-size: 11px;    
-    font-weight: 600;
-    background-color: $yellowFFFF99;
-    border: dashed 1px $brown520;
-    text-align: left;
-	}
+.annotation {
+    color: $gray444;
+    font-size: 14px;
+}
 
+table {
+    &.event {
+        margin: 0;
+        padding: 0;
+        width: 80%;
+        height: auto;
+        box-shadow: 2px 2px 3px $brown520;
+    }
+}
+.event {
+    th {
+        margin: 0;
+        padding: 8px;
+        color: white;
+        font: {
+            size: 12px;
+            weight: 600;
+        }
+        text: {
+            align: center;
+            shadow: 1px 1px 2px $red441100;
+        }
+        background-color: $orangeCA8E3E;
+        border: dashed 1px $brown520;
+	}
+    td {
+        margin: 0;
+        padding: 8px;
+        font: {
+            size: 11px;
+            weight: 600;
+        }
+        text-align: center;
+        color: $brown520;
+        background-color: $yellowFFFF99;
+        border: dashed 1px $brown520;
+	}
+}
 .myMenu {
   padding:4px 12px;
   text-shadow: 0 2px 0 $gray444;    // #444

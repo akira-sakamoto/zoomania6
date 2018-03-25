@@ -88,67 +88,11 @@ ons-gesture-detector { position: absolute; top: 0px; left: 0px; right: 0px; bott
 #footer img { margin: 0px; padding: 0; border: none; }
 
 /* 料金表テーブル用 */
-.fee_title { margin: 8px; padding: 2px 10px; width: 80%; height: auto; font-size: 22px; color: white; background: #552200; border: dashed 1px white; }
+.fee_title, .pleasure_title { margin: 8px; padding: 2px 10px; width: 80%; height: auto; font-size: 22px; color: white; background: #552200; border: dashed 1px white; border-radius: 10px; box-shadow: 2px 2px 3px #552200; }
 
-/*
-table {
-    .fee {
-        width: 100%;
-        height: auto;
-        border: solid 1px $brown520;
-        background: cream;
-    }
-}
-tr {
-    .fee {
-        border: dotted 1px $red552000;
-    }
-}
-th {
-    .fee {
-        // margin: 0;
-        padding: 12px 4px;
-        color: white;
-        font: {
-            size: 12px;
-            weight: 600;
-        }
-        // font-size: 12px;    
-        // font-weight: 600;
-        text-align: center;
-        background-color: $brown520;
-        border: dashed 1px $white;
-    }
-}
-td {
-    .fee {
-        // margin: 0;
-        padding: 10px 4px;
-        text-align: center;
-        color: $brown520;
-        font: {
-            size: 11px;
-            weight: 600;
-        }
-        // font-size: 11px;    
-        // font-weight: 600;
-        background-color: lightyellow;
-        border: {
-            top: none;
-            right: dashed 1px $brown520;
-            left: none;
-            bottom: dashed 1px $brown520;
-        }
-        // border-top: none;
-        // border-right: dashed 1px $brown520;
-        // border-left: none;
-        // border-bottom: dashed 1px $brown520;
-    }
-}
-*/
+table.fee { width: 100%; height: auto; border-spacing: 0; border-collapse: collapse; border: solid 1px #552200; background: cream; box-shadow: 2px 2px 3px #552200; }
+
 .fee { margin: 0; padding: 0; }
-
-.fee table { width: 100%; height: auto; border: solid 1px #552200; background: cream; }
 
 .fee tr { border: dotted 1px #552000; }
 
@@ -172,14 +116,18 @@ ul.fee2 li.star::before { content: "＊"; margin-left: -1em; width: 1em; }
 
 .clearfix::after { display: block; clear: both; height: 0px; visibility: hidden; content: "."; }
 
+img.information { border: 0px; width: 100%; height: auto; margin-bottom: 0.5em; }
+
 /* おたのしみページ用 */
-#fee_title2 { margin: 8px; padding: 2px 10px; width: 75%; height: auto; font-size: 22px; color: white; background: #CA8E3E; border: dashed 1px #552200; border-radius: 10px; text-shadow: 2px 2px 3px #552200; }
+.pleasure_title2, .fee_title2 { margin: 8px; padding: 2px 10px; width: 75%; height: auto; font-size: 22px; color: white; background: #CA8E3E; border: dashed 1px #552200; border-radius: 10px; text-shadow: 2px 2px 3px #552200; box-shadow: 2px 2px 3px #552200; }
 
-#event table { margin: 0; padding: 0; width: 80%; height: auto; }
+.annotation { color: #444; font-size: 14px; }
 
-#event th { margin: 0; padding: 8px; color: white; font-size: 12px; font-weight: 600; text-align: center; background-color: #CA8E3E; text-shadow: 1px 1px 2px #441100; border: dashed 1px #552200; }
+table.event { margin: 0; padding: 0; width: 80%; height: auto; box-shadow: 2px 2px 3px #552200; }
 
-#event td { margin: 0; padding: 8px; text-align: center; color: #552200; font-size: 11px; font-weight: 600; background-color: #FFFF99; border: dashed 1px #552200; text-align: left; }
+.event th { margin: 0; padding: 8px; color: white; font-size: 12px; font-weight: 600; text-align: center; text-shadow: 1px 1px 2px #441100; background-color: #CA8E3E; border: dashed 1px #552200; }
+
+.event td { margin: 0; padding: 8px; font-size: 11px; font-weight: 600; text-align: center; color: #552200; background-color: #FFFF99; border: dashed 1px #552200; }
 
 .myMenu { padding: 4px 12px; text-shadow: 0 2px 0 #444; font-size: 20px; line-height: 36px; background-color: #bb933e; border-top: solid 2px #e4c792; border-left: solid 2px #e4c792; border-bottom: solid 2px #000; border-bottom: solid 2px #000; border-radius: 16px; }
 
