@@ -198,11 +198,14 @@
        * スキャンボタン押下時
        */
       function scanBarcode() {
-        if (_useDebug) {
+        if (typeof cordova === "undefined") {
+
+        // if (_useDebug) {
           var stub = [
             "projectName=Utsunomiya&projectVersion=1.0&projectType=animal&itemId=ライオン&hash=6f328928900b3000925be62fde1f72ebc83ce3a1",
             "projectName=Utsunomiya&projectVersion=1.0&projectType=animal&itemId=シロテテナガザル&hash=1367b2342b348b4b4f7ff43c8e7d969edb877dc0",
-            "projectName=Utsunomiya&projectVersion=1.0&projectType=animal&itemId=ニホンザル&hash=9dcb507dde1b03cd87fa852a19dd9605d1dc0582"
+            "projectName=Utsunomiya&projectVersion=1.0&projectType=animal&itemId=ニホンザル&hash=9dcb507dde1b03cd87fa852a19dd9605d1dc0582",
+            "projectName=utsunomiya&projectVersion=1.0&projectType=animal&itemId=シンリンオオカミ&hash=a2ef569ae322b861c4d22b072f7184fba66a9d0d"
           ];
           var qrValue = {
             format: "xx",
