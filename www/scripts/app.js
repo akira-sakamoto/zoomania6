@@ -4,7 +4,7 @@
    * デバッグモード
    * @private
    */
-  var _useDebug = true;
+  // var _useDebug = true;
   
   /**
    * HASHのsalt
@@ -18,7 +18,36 @@
    */
   var qrLog = null;
 
-(function() {
+  /**
+   * QRコードスタブ
+   */
+  var _qrStub = [];
+  
+  /**
+   * スタブ使用時のカウンタ
+   */
+  var _stubCount = 0;
+  
+  /**
+   * 初期化
+   */
+  ons.ready(function() {
+    // emulatorのときはスタブデータを読み込む
+    if (isEmulator()) {
+      console.log("emulator");
+      if (_qrStub.length === 0) {
+        console.log("getJSON");
+        $.getJSON("assets/qrstub.json", function(data) {
+          _qrStub = data;
+          console.log("qrStub is loaded");
+        });
+      }
+    }  
+
+//  });
+
+
+//(function() {
   /**
    * @pravate {object} 読み込んだ動物データを保持する
    */
@@ -193,26 +222,19 @@
         return false;
       });
       
-      var stubCount = 0;
       /**
        * スキャンボタン押下時
        */
       function scanBarcode() {
-        if (typeof cordova === "undefined") {
+        if (isEmulator()) {
+          // 実機ではないとき
 
-        // if (_useDebug) {
-          var stub = [
-            "projectName=Utsunomiya&projectVersion=1.0&projectType=animal&itemId=ライオン&hash=6f328928900b3000925be62fde1f72ebc83ce3a1",
-            "projectName=Utsunomiya&projectVersion=1.0&projectType=animal&itemId=シロテテナガザル&hash=1367b2342b348b4b4f7ff43c8e7d969edb877dc0",
-            "projectName=Utsunomiya&projectVersion=1.0&projectType=animal&itemId=ニホンザル&hash=9dcb507dde1b03cd87fa852a19dd9605d1dc0582",
-            "projectName=utsunomiya&projectVersion=1.0&projectType=animal&itemId=シンリンオオカミ&hash=a2ef569ae322b861c4d22b072f7184fba66a9d0d"
-          ];
           var qrValue = {
             format: "xx",
             cancelled: ""
           };
-          qrValue.text = stub[stubCount];
-          stubCount = (stubCount + 1) % stub.length;
+          qrValue.text = _qrStub[_stubCount];
+          _stubCount = (_stubCount + 1) % _qrStub.length;
           decodeQrCode(qrValue);
         } else {
           if (window.plugins === undefined) {
@@ -294,7 +316,8 @@
     console.log("page.id = " + page.id + ", page.data = " + page.data);
     console.log('init >>');
   });
-})();
+//})();
+});
 
 /**
  * pushPageの代替
@@ -411,4 +434,12 @@ function getGesture(event) {
     return event.gesture;
   }
   return event.originalEvent.gesture;
+}
+
+/**
+ * emulatorで実行しているか
+ * @return {boolean} emulatorで実行しているときにtrue
+ */
+function isEmulator() {
+  return typeof cordova === "undefined";
 }
