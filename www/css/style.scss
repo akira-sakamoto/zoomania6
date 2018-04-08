@@ -109,7 +109,8 @@ $white:         #FFFFFF;
   margin-right: 1em;
   margin-left: 0.5em;
   padding: 1px;
-  background-color: $brown663300;
+  // 見つけた動物で色を変えたらどうだろう？
+  // background-color: $brown663300;
   border: dashed 1px $orangeE4C69E;
   box-shadow: 1px 1px 8px 2px rgba(0,0,0,0.4);
 }
@@ -158,6 +159,13 @@ $white:         #FFFFFF;
   padding: 10px;
   border: 1px solid $grayCCC;
 }
+.namePlate {
+    margin-top: 2em;
+    margin-bottom: 2em;
+    img {
+        box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.5);
+    }
+}
 
 /*  ロゴ(2018.02.08) */
 .logo_pct{
@@ -205,6 +213,11 @@ $white:         #FFFFFF;
 /* 園内マップ */
 #zooMap {
   position: absolute;
+}
+.initialFit {
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
 }
 ons-gesture-detector {
   position: absolute;
@@ -409,7 +422,7 @@ table {
         }
         background-color: $orangeCA8E3E;
         border: dashed 1px $brown520;
-	}
+  }
     td {
         margin: 0;
         padding: 8px;
@@ -431,7 +444,6 @@ table {
   background-color: $orangeBB933E;  // rgb(187, 147, 62);
   border-top: solid 2px $orangeE4C792;   // rgb(228, 199, 146)
   border-left: solid 2px $orangeE4C792;
-  border-bottom: solid 2px $black000;   // rgb(0, 0, 0);
   border-bottom: solid 2px $black000;   // rgb(0, 0, 0);
   border-radius: 16px;
 }

@@ -1,10 +1,4 @@
 // This is a JavaScript file
-
-  /**
-   * デバッグモード
-   * @private
-   */
-  // var _useDebug = true;
   
   /**
    * HASHのsalt
@@ -29,45 +23,32 @@
   var _stubCount = 0;
   
   /**
-   * 初期化
-   */
-  ons.ready(function() {
-    // emulatorのときはスタブデータを読み込む
-    if (isEmulator()) {
-      console.log("emulator");
-      if (_qrStub.length === 0) {
-        console.log("getJSON");
-        $.getJSON("assets/qrstub.json", function(data) {
-          _qrStub = data;
-          console.log("qrStub is loaded");
-        });
-      }
-    }  
-
-//  });
-
-
-//(function() {
-  /**
    * @pravate {object} 読み込んだ動物データを保持する
    */
   var _zooData = [];
   
   /**
-   * @private {object} ページリスト
+   * 初期化
    */
-  var _pageList = {
-    animalName: '',
-
-    menu: function() {
-      console.log('_pageList.menu <<');
-      // 動物データ読み込み
-      if (_zooData.length === 0) {
-        $.getJSON('assets/zoodata.json', function(data) {
-          _zooData = data;
-          console.log('zoodata is loaded');
+  ons.ready(function() {
+    // 動物データ読み込み
+    if (_zooData.length === 0) {
+      $.getJSON('assets/zoodata.json', function(data) {
+        _zooData = data;
+        console.log('zoodata is loaded');
+      });
+    }
+    // emulatorのときはスタブデータを読み込む
+    if (isEmulator()) {
+      if (_qrStub.length === 0) {
+        $.getJSON("assets/qrstub.json", function(data) {
+          _qrStub = data;
+          console.log("qrstub is loaded");
         });
       }
+    }  
+
+
       // QRログデータ読み込み
       // if (isUndefinedOrNull(qrLog)) {
       //   // ローカルストレージから読み込む
@@ -80,9 +61,23 @@
       //   }
       // }
 
+  /**
+   * @private {object} ページリスト
+   */
+  var _pageList = {
+    animalName: '',
+
+    /**
+     * メインメニュー
+     */
+    menu: function() {
+      console.log('_pageList.menu <<');
       console.log('_pageList.menu >>');
     },
     
+    /**
+     * どうぶつずかん
+     */
     book: function() {
       var animalList = $('#animalList')[0];
       // console.dir(animalList);
@@ -127,9 +122,6 @@
         for (var i = 0; i < _zooData.length; i++) {
           var animal = _zooData[i];
           if (animal.jpName === animalName) {
-            if (isUndefinedOrNull(data.qrChecked)) {
-              animal.qrChecked = new Date();
-            }
             $('#title')[0].innerText = animal.jpName;
             $('#photo').attr('src', animal.urlPhoto);
             $('#urlWiki').attr('href', animal.urlWiki);
@@ -144,10 +136,13 @@
             } else {
               $("#trophy").css("visibility", "hidden");
             }
+            if (isUndefinedOrNull(data.qrChecked)) {
+              animal.qrChecked = new Date();
+            }
             return;
           }
         }
-      },1000);
+      },500);
       console.log("detail >>");
     },
 
@@ -157,22 +152,48 @@
     map: function() {
       console.log('_pageList.map <<');
 
-      var zooMap = $("#zooMap");
-      var prevScale = 1;
-      var scale = 1;
+      var $zooMap = $("#zooMap");
+      $zooMap.addClass("initialFit");
 
-      $(zooMap).on("transform", function(event) {
-        console.log("transform");
-        var gesture = getGesture(event);
-        scale = Math.max(0.5, Math.min(prevScale * gesture.scale, 3));
-        console.log("scale = " + scale);
-        zooMap.css({transform: "scale(" + scale + "," + scale + ")"});
-      });
-      
-      $(zooMap).on("release", function(event) {
-        console.log("release");
-        prevScale = scale;
-      });
+      // 描画完了を待っているつもり
+      setTimeout(function() {
+        // initialFit中のスケールを取得する
+        var mapImg = $("#zooMap")[0];
+        var aspectW = mapImg.width / mapImg.naturalWidth;
+        var aspectH = mapImg.height / mapImg.naturalHeight;
+        var minScale = (aspectW < aspectH) ? aspectH : aspectW;
+        var prevScale = minScale;
+        var scale = minScale;
+
+        $zooMap.on("transform", function(event) {
+          console.log("transform");
+          var gesture = getGesture(event);
+          scale = Math.max(minScale, Math.min(prevScale * gesture.scale, 3));
+          console.log("scale = " + scale);
+          $zooMap.removeClass("initialFit").css({transform: "scale(" + scale + "," + scale + ")"});
+          var trans = mapImg.style.transform;
+          console.log("trans = " + trans);
+        });
+        
+        $zooMap.on("drag", function(event) {
+          // $zooMap.removeClass("initialFit");
+          var gesture = getGesture(event);
+          var mapImg = $("#zooMap")[0];
+          // var x = (mapImg.x < 0) ? 0 : mapImg.x;
+          // var y = (mapImg.y < 0) ? 0 : mapImg.y;
+          var x = mapImg.x + gesture.deltaX;
+          var y = mapImg.y + gesture.deltaY;
+          //var transStr = "translateX(" + gesture
+          console.log("drag: " + gesture.deltaX + ", " + gesture.deltaY + ", " + mapImg.x + ", " + mapImg.y);
+        });
+        
+        $zooMap.on("release", function(event) {
+          var trans = mapImg.style.transform;
+          console.log("release = " + trans);
+          prevScale = scale;
+        });
+
+      }, 100);
       
       console.log('_pageList.map >>');
     },
