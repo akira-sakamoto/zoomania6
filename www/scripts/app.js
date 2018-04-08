@@ -153,38 +153,50 @@
       console.log('_pageList.map <<');
 
       var $zooMap = $("#zooMap");
-      $zooMap.addClass("initialFit");
+      //$zooMap.addClass("initialFit");
 
       // 描画完了を待っているつもり
       setTimeout(function() {
         // initialFit中のスケールを取得する
         var mapImg = $("#zooMap")[0];
-        var aspectW = mapImg.width / mapImg.naturalWidth;
-        var aspectH = mapImg.height / mapImg.naturalHeight;
+        // 描画領域のサイズ
+        var gestureW = $("ons-gesture-detector").width();
+        var gestureH = $("ons-gesture-detector").height();
+
+        var naturalW = mapImg.naturalWidth;
+        var naturalH = mapImg.naturalHeight;
+        var centerX = naturalW / 2;
+        var centerY = naturalH / 2;
+        var aspectW = gestureW / naturalW;
+        var aspectH = gestureH / naturalH;
         var minScale = (aspectW < aspectH) ? aspectH : aspectW;
+        
+        // $zooMap.css({"transform": "scale(" + })
         var prevScale = minScale;
         var scale = minScale;
-
+        console.log("gestureW = " + gestureW + ", gestureH = " + gestureH);
+        console.log("naturalW = " + naturalW + ", naturalH = " + naturalH);
+        console.log("aspectW = " + aspectW + ", aspectH = " + aspectH);
+        console.log("scale = " + scale);
+        $zooMap.css({"transform": scaleStr(scale) + translateXstr(-centerX) + translateYstr(-centerY)});
+        
         $zooMap.on("transform", function(event) {
           console.log("transform");
           var gesture = getGesture(event);
           scale = Math.max(minScale, Math.min(prevScale * gesture.scale, 3));
           console.log("scale = " + scale);
-          $zooMap.removeClass("initialFit").css({transform: "scale(" + scale + "," + scale + ")"});
+          $zooMap.css({"transform": scaleStr(scale)});
           var trans = mapImg.style.transform;
           console.log("trans = " + trans);
         });
-        
+
         $zooMap.on("drag", function(event) {
           // $zooMap.removeClass("initialFit");
           var gesture = getGesture(event);
-          var mapImg = $("#zooMap")[0];
-          // var x = (mapImg.x < 0) ? 0 : mapImg.x;
-          // var y = (mapImg.y < 0) ? 0 : mapImg.y;
-          var x = mapImg.x + gesture.deltaX;
-          var y = mapImg.y + gesture.deltaY;
-          //var transStr = "translateX(" + gesture
-          console.log("drag: " + gesture.deltaX + ", " + gesture.deltaY + ", " + mapImg.x + ", " + mapImg.y);
+          var gx = gesture.center.pageX;
+          var gy = gesture.center.pageY;
+          console.log("drag: gx = " + gx + ", gy = " + gy);
+          $zooMap.css({"transform":"translate(" + (gx - centerX) + "px, " + (gy - centerY) + "px)"});
         });
         
         $zooMap.on("release", function(event) {
@@ -193,9 +205,19 @@
           prevScale = scale;
         });
 
-      }, 100);
+      }, 500);
       
       console.log('_pageList.map >>');
+
+      function scaleStr(scale) {
+        return "scale(" + scale + "," + scale + ")";
+      }
+      function translateXstr(delta) {
+        return "translateX(" + delta + "px)";
+      }
+      function translateYstr(delta) {
+        return "translateY(" + delta + "px)";
+      }
     },
 
     /**
