@@ -153,64 +153,75 @@
       console.log('_pageList.map <<');
 
       var $zooMap = $("#zooMap");
-      //$zooMap.addClass("initialFit");
+      var scale, minScale, prevScale;
 
       // 描画完了を待っているつもり
       setTimeout(function() {
-        // initialFit中のスケールを取得する
+        // 本来の画像サイズ
         var mapImg = $("#zooMap")[0];
-        // 描画領域のサイズ
-        var gestureW = $("ons-gesture-detector").width();
-        var gestureH = $("ons-gesture-detector").height();
-
         var naturalW = mapImg.naturalWidth;
         var naturalH = mapImg.naturalHeight;
-        var centerX = naturalW / 2;
-        var centerY = naturalH / 2;
-        var aspectW = gestureW / naturalW;
-        var aspectH = gestureH / naturalH;
-        var minScale = (aspectW < aspectH) ? aspectH : aspectW;
+
+        // 描画領域のサイズ
+        var areaW = $("ons-gesture-detector").width();
+        var areaH = $("ons-gesture-detector").height();
+
+        // スケール
+        var scaleW = areaW / naturalW;
+        var scaleH = areaH / naturalH;
+        scale = (scaleW > scaleH) ? scaleW : scaleH;
+        // これ以上小さくしない
+        minScale = scale;
+        prevScale = scale;
         
-        // $zooMap.css({"transform": "scale(" + })
-        var prevScale = minScale;
-        var scale = minScale;
-        console.log("gestureW = " + gestureW + ", gestureH = " + gestureH);
-        console.log("naturalW = " + naturalW + ", naturalH = " + naturalH);
-        console.log("aspectW = " + aspectW + ", aspectH = " + aspectH);
-        console.log("scale = " + scale);
-        $zooMap.css({"transform": scaleStr(scale) + translateXstr(-centerX) + translateYstr(-centerY)});
-        
-        $zooMap.on("transform", function(event) {
-          console.log("transform");
-          var gesture = getGesture(event);
-          scale = Math.max(minScale, Math.min(prevScale * gesture.scale, 3));
-          console.log("scale = " + scale);
-          $zooMap.css({"transform": scaleStr(scale)});
-          var trans = mapImg.style.transform;
-          console.log("trans = " + trans);
-        });
+        // スケール後のサイズ
+        var imgScaleW = naturalW * scale;
+        var imgScaleH = naturalH * scale;
+
+        // 位置補正
+        var ofsW = (areaW - imgScaleW) / 2;
+        var ofsH = (areaH - imgScaleH) / 2;
+
+        var trans = scaleStr(scale) + translateStr(ofsW, ofsH);
+        console.log("trans = " + trans);
+        $zooMap.css({"transform-origin": "top left"})
+               .css({"transform": trans});
+      }, 100);
+
+
+      // イベントハンドラ
+      $zooMap.on("transform", function(event) {
+        var gesture = getGesture(event);
+        scale = Math.max(minScale, Math.min(prevScale * gesture.scale, 2));
+        prevScale = scale;
+        console.log("transform:" + scale);
+        $zooMap.css({"transform": scaleStr(scale)});
+      });
 
         $zooMap.on("drag", function(event) {
-          // $zooMap.removeClass("initialFit");
           var gesture = getGesture(event);
-          var gx = gesture.center.pageX;
-          var gy = gesture.center.pageY;
-          console.log("drag: gx = " + gx + ", gy = " + gy);
-          $zooMap.css({"transform":"translate(" + (gx - centerX) + "px, " + (gy - centerY) + "px)"});
+          var deltaX = gesture.deltaX;
+          var deltaY = gesture.deltaY;
+          var trans = scaleStr(scale) + translateStr(deltaX, deltaY);
+          console.log("drag: " + trans);
+          $zooMap.css({"transform": trans});
         });
         
         $zooMap.on("release", function(event) {
-          var trans = mapImg.style.transform;
-          console.log("release = " + trans);
-          prevScale = scale;
+          // var trans = mapImg.style.transform;
+          // console.log("release = " + trans);
+          // prevScale = scale;
         });
 
-      }, 500);
       
       console.log('_pageList.map >>');
 
       function scaleStr(scale) {
-        return "scale(" + scale + "," + scale + ")";
+        return sprintf("scale(%g,%g)", scale, scale);
+      }
+      function translateStr(deltaX, deltaY) {
+        return sprintf("translate(%gpx,%gpx)", deltaX, deltaY);
+        // "translate(" + deltaX + "px," + deltaY + "px)";
       }
       function translateXstr(delta) {
         return "translateX(" + delta + "px)";
