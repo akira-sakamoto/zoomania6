@@ -4,7 +4,7 @@
    * デバッグモード
    * @private
    */
-  var _useDebug = true;
+  // var _useDebug = true;
   
   /**
    * HASHのsalt
@@ -18,25 +18,43 @@
    */
   var qrLog = null;
 
+  /**
+   * QRコードスタブ
+   * @private {Object}
+   */
+  var _qrStub = [];
+  
+  /**
+   * スタブ使用時のカウンタ
+   */
+  var _stubCount = 0;
+  
+
 (function() {
   /**
-   * @pravate {object} 読み込んだ動物データを保持する
+   * @private {object} 読み込んだ動物データを保持する
    */
-  var _zooData = [];
+  var zooData = [];
   
   /**
    * @private {object} ページリスト
    */
   var _pageList = {
-    animalName: '',
+    animalName: "",
 
     menu: function() {
-      console.log('_pageList.menu <<');
+      console.log("_pageList.menu <<");
       // 動物データ読み込み
-      if (_zooData.length === 0) {
-        $.getJSON('assets/zoodata.json', function(data) {
-          _zooData = data;
-          console.log('zoodata is loaded');
+      if (zooData.length === 0) {
+        $.getJSON("assets/zoodata.json", function(data) {
+          zooData = data;
+          console.log("zoodata is loaded");
+          if (qrStub.length === 0) {
+            $.getJSON("assets/qrStub.json", function(data) {
+              qrStub = data;
+              console.log("qrStub is loaded");
+            });
+          }
         });
       }
       // QRログデータ読み込み
@@ -51,33 +69,33 @@
       //   }
       // }
 
-      console.log('_pageList.menu >>');
+      console.log("_pageList.menu >>");
     },
     
     book: function() {
-      var animalList = $('#animalList')[0];
+      var animalList = $("#animalList")[0];
       // console.dir(animalList);
       animalList.delegate = {
         createItemContent: function(index) {
-          var animal = _zooData[index];
+          var animal = zooData[index];
           var thumbnail = "assets/image/thumbnails/" + animal.thumbnail;
           var element = 
             "<ons-list-item>" +
-              "<div class='animalListDiv' onclick='myPushPage(\"detail.html\", this.innerText)'>" +
-                "<img src='" + thumbnail + "' class='thumbnail'>" +
-                "<div class='animalListName'>" +
+              "<div class="animalListDiv" onclick="myPushPage(\"detail.html\", this.innerText)">" +
+                "<img src="" + thumbnail + "" class="thumbnail">" +
+                "<div class="animalListName">" +
                   animal.jpName +
-                  "<div class='fa bookTrophy'></div>" +
+                  "<div class="fa bookTrophy"></div>" +
                 "</div>" +
               "</div>" +
             "</ons-list-item>";
           return ons.createElement(element);
         },
         countItems: function() {
-          return _zooData.length;
+          return zooData.length;
         },
         hasTrophy: function(index) {
-          return isUndefinedOrNull(_zooData[index].qrChecked);
+          return isUndefinedOrNull(zooData[index].qrChecked);
         }
       };
       animalList.refresh();
@@ -95,21 +113,21 @@
       }
       
       setTimeout(function() {
-        for (var i = 0; i < _zooData.length; i++) {
-          var animal = _zooData[i];
+        for (var i = 0; i < zooData.length; i++) {
+          var animal = zooData[i];
           if (animal.jpName === animalName) {
             if (isUndefinedOrNull(data.qrChecked)) {
               animal.qrChecked = new Date();
             }
-            $('#title')[0].innerText = animal.jpName;
-            $('#photo').attr('src', animal.urlPhoto);
-            $('#urlWiki').attr('href', animal.urlWiki);
-            $('#jpName')[0].innerText = animal.jpName;
-            $('#enName')[0].innerText = animal.enName;
-            $('#zlName')[0].innerText = animal.zlName;
-            var classified = animal.class + ' ' + animal.order + ' ' + animal.family;
-            $('#classified')[0].innerText = classified;
-            $('#description')[0].innerText = animal.description;
+            $("#title")[0].innerText = animal.jpName;
+            $("#photo").attr("src", animal.urlPhoto);
+            $("#urlWiki").attr("href", animal.urlWiki);
+            $("#jpName")[0].innerText = animal.jpName;
+            $("#enName")[0].innerText = animal.enName;
+            $("#zlName")[0].innerText = animal.zlName;
+            var classified = animal.class + " " + animal.order + " " + animal.family;
+            $("#classified")[0].innerText = classified;
+            $("#description")[0].innerText = animal.description;
             if (!isUndefinedOrNull(animal.qrChecked)) {
               $("#trophy").css("visibility", "visible");
             } else {
@@ -118,7 +136,7 @@
             return;
           }
         }
-      },1000);
+      },500);
       console.log("detail >>");
     },
 
@@ -126,7 +144,7 @@
      * 園内マップ
      */
     map: function() {
-      console.log('_pageList.map <<');
+      console.log("_pageList.map <<");
 
       var zooMap = $("#zooMap");
       var prevScale = 1;
@@ -145,15 +163,15 @@
         prevScale = scale;
       });
       
-      console.log('_pageList.map >>');
+      console.log("_pageList.map >>");
     },
 
     /**
      * ヘルプ
      */
     help: function() {
-      console.log('_pageList.help <<');
-      console.log('_pageList.help >>');
+      console.log("_pageList.help <<");
+      console.log("_pageList.help >>");
     },
 
     /**
@@ -163,7 +181,7 @@
       console.log("_pageList.pleasure <<");
       var checked_animal = checkedAnimals();
       $("#checked_animals").text(checked_animal);
-      $("#total_animals").text(_zooData.length);
+      $("#total_animals").text(zooData.length);
       console.log("_pageList.pleasure >>");
     },
 
@@ -187,8 +205,8 @@
      * QRコードスキャン
      */
     qrscan: function() {
-      console.log('_pageList.qrscan <<');
-      $('#qrScanButton').click(function() {
+      console.log("_pageList.qrscan <<");
+      $("#qrScanButton").click(function() {
         scanBarcode();
         return false;
       });
@@ -200,13 +218,6 @@
       function scanBarcode() {
         if (typeof cordova === "undefined") {
 
-        // if (_useDebug) {
-          var stub = [
-            "projectName=Utsunomiya&projectVersion=1.0&projectType=animal&itemId=ライオン&hash=6f328928900b3000925be62fde1f72ebc83ce3a1",
-            "projectName=Utsunomiya&projectVersion=1.0&projectType=animal&itemId=シロテテナガザル&hash=1367b2342b348b4b4f7ff43c8e7d969edb877dc0",
-            "projectName=Utsunomiya&projectVersion=1.0&projectType=animal&itemId=ニホンザル&hash=9dcb507dde1b03cd87fa852a19dd9605d1dc0582",
-            "projectName=utsunomiya&projectVersion=1.0&projectType=animal&itemId=シンリンオオカミ&hash=a2ef569ae322b861c4d22b072f7184fba66a9d0d"
-          ];
           var qrValue = {
             format: "xx",
             cancelled: ""
@@ -217,7 +228,7 @@
         } else {
           if (window.plugins === undefined) {
             // エラーメッセージ
-            $('#qrResultMessage').text('QRコードスキャナは使えません');
+            $("#qrResultMessage").text("QRコードスキャナは使えません");
             return;
           } else {
             window.plugins.barcodeScanner.scan(function(result) {
@@ -230,11 +241,11 @@
               decodeQrCode(result);
             }, function(error) {
               // エラーコールバック
-              $('#qrResultMessage').text(error);
+              $("#qrResultMessage").text(error);
             });
           }        
         }
-        console.log('_pageList.qrscan <<');
+        console.log("_pageList.qrscan <<");
       }
     }
   };
@@ -272,7 +283,7 @@
    */
   function checkedAnimals() {
     var sum = 0;
-    for (var i = 0; i < _zooData.length; i++) {
+    for (var i = 0; i < zooData.length; i++) {
       sum++;
     }
     return sum;
@@ -285,14 +296,14 @@
   
   // Page init event
   // ページ遷移ごとに実行される  
-  document.addEventListener('init', function(event) {
-    console.log('init <<');
+  document.addEventListener("init", function(event) {
+    console.log("init <<");
     
     // 各ページごとにコントローラを設定する
     var page = event.target;
     _pageList[page.id](page.data);
     console.log("page.id = " + page.id + ", page.data = " + page.data);
-    console.log('init >>');
+    console.log("init >>");
   });
 })();
 
@@ -302,7 +313,7 @@
  * @param {object} options  オプションを指定するオブジェクト
  */
 function myPushPage(page, option) {
-  console.log('myPushPage ' + page + ', ' + option + ' <<');
+  console.log("myPushPage " + page + ", " + option + " <<");
   
   var options = {};
   var data = {};
@@ -315,20 +326,20 @@ function myPushPage(page, option) {
       animalName = option.name;
       method = option.method;
       data.qr = true;
-    } else if (typeof option === 'string') {
+    } else if (typeof option === "string") {
       // 動物リストをクリックされたときは動物名が直接渡される
       animalName = option.trim();
     }
     data.name = animalName;
     options.data = data;
   }
-  var nav = document.querySelector('#navigator');
+  var nav = document.querySelector("#navigator");
   //if (method === "bringPageTop") {
     nav.bringPageTop(page, options);
   //} else {
   //  nav.pushPage(page, options);
   //}
-  console.log('myPushPage >>');
+  console.log("myPushPage >>");
 }
 
 /**
@@ -358,7 +369,7 @@ function checkParameters(params) {
   var version = Number(projectVersion);
   if (version < 2.0) {
     // animalのみ  
-    if (projectType !== 'animal')
+    if (projectType !== "animal")
       return false;
   }
   
@@ -396,7 +407,7 @@ function isUndefinedOrNull(value) {
   return isUndefined(value) || value === null;
 }
 function isUndefined(value) {
-  return typeof value === 'undefined';
+  return typeof value === "undefined";
 }
 
 /**

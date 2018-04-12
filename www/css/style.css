@@ -150,6 +150,15 @@
   border: 1px solid #CCC;
 }
 
+.namePlate {
+  margin-top: 2em;
+  margin-bottom: 2em;
+}
+
+.namePlate img {
+  box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.5);
+}
+
 /*  ロゴ(2018.02.08) */
 .logo_pct {
   margin: 0;

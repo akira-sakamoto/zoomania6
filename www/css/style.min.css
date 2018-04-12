@@ -49,6 +49,10 @@
 
 #qrResultMessage { margin: 20px 0; padding: 10px; border: 1px solid #CCC; }
 
+.namePlate { margin-top: 2em; margin-bottom: 2em; }
+
+.namePlate img { box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.5); }
+
 /*  ロゴ(2018.02.08) */
 .logo_pct { margin: 0; padding: 0; width: 100%; height: auto; display: inline-block; /*    background-color: blue;*/ }
 

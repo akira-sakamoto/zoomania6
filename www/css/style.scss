@@ -158,6 +158,13 @@ $white:         #FFFFFF;
   padding: 10px;
   border: 1px solid $grayCCC;
 }
+.namePlate {
+    margin-top: 2em;
+    margin-bottom: 2em;
+    img {
+        box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.5);
+    }
+}
 
 /*  ロゴ(2018.02.08) */
 .logo_pct{
