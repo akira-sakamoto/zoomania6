@@ -12,3 +12,7 @@ For details, please check out [Onsen UI Website](http://onsenui.io) and [the doc
 - zepto
     - MIT license
     - [http://zeptojs.com/](http://zeptojs.com/)
+
+- agh.sprintf.js
+    - MIT license
+    - [https://github.com/akinomyoga/agh.sprintf.js](https://github.com/akinomyoga/agh.sprintf.js)

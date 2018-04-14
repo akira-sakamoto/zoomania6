@@ -26,7 +26,28 @@
    * @pravate {object} 読み込んだ動物データを保持する
    */
   var _zooData = [];
-  
+
+  /**
+   * monacaデバッガと連動するconsoleを無効化する
+   * @param {*} level 
+   * @param {*} url 
+   * @param {*} line 
+   * @param {*} char 
+   * @param {*} arguments 
+   */
+  var myConsoleLog = function(level, url, line, char, arguments) {
+    // 普通にconsole.xxxを使用するとmonacaデバッガへ通信を行おうとして大量にエラーが発生するからそれを抑制する
+    var message;
+    for (var i=0; i<arguments.length; i++){
+        if (typeof arguments[i] == "string") {
+            message = arguments[i];
+        } else {
+            message = JSON.stringify(arguments[i]);
+        }
+        window.orig_console[level](message);
+    }
+  }
+
   /**
    * 初期化
    */
@@ -38,8 +59,11 @@
         console.log('zoodata is loaded');
       });
     }
-    // emulatorのときはスタブデータを読み込む
     if (isEmulator()) {
+      // monacaデバッガを抑制する
+      monaca.console.sendLog = myConsoleLog;
+      
+      // emulatorのときはスタブデータを読み込む
       if (_qrStub.length === 0) {
         $.getJSON("assets/qrstub.json", function(data) {
           _qrStub = data;
@@ -48,7 +72,7 @@
       }
     }
 
-    var qrLog = new QRlog();
+    qrLog = new QRlog();
     var lastLogDate = qrLog.getLastLogDate();
 
 
@@ -112,6 +136,7 @@
     
     /**
      * 動物詳細情報
+     * @param {Object} data
      */
     detail: function(data) {
       console.log("detail <<");
@@ -120,7 +145,10 @@
       if (!isUndefinedOrNull(data) && !isUndefinedOrNull(data.name)) {
         animalName = data.name;
       }
-      
+      // QRから来た時にログを記録する
+      qrLog.addLog(animalName);
+      qrLog.listLog();
+
       setTimeout(function() {
         for (var i = 0; i < _zooData.length; i++) {
           var animal = _zooData[i];
