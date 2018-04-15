@@ -170,3 +170,19 @@ QRlog.prototype.listLog = function() {
   }
   console.log("QRlog.listLog >>");
 }
+
+/**
+ * チェックした数を返す
+ * @return {Number} ログをチェックした数
+ */
+QRlog.prototype.countLog = function() {
+  console.log("QRlog.countLog <<");
+  var sum = 0;
+  for (var i = 0; i < this.qrLogData.length; i++) {
+    if (this.qrLogData[i].count > 0) {
+      sum++;
+    }
+  }
+  return sum;
+  console.log("QRlog.countLog >>");
+}

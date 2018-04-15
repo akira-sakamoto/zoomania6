@@ -62,7 +62,7 @@
     if (isEmulator()) {
       // monacaデバッガを抑制する
       monaca.console.sendLog = myConsoleLog;
-      
+
       // emulatorのときはスタブデータを読み込む
       if (_qrStub.length === 0) {
         $.getJSON("assets/qrstub.json", function(data) {
@@ -71,23 +71,9 @@
         });
       }
     }
-
+    // ログシステム初期化
     qrLog = new QRlog();
-    var lastLogDate = qrLog.getLastLogDate();
-
-
-      // QRログデータ読み込み
-      // if (isUndefinedOrNull(qrLog)) {
-      //   // ローカルストレージから読み込む
-      //   var storage = windows.localStorage;
-      //   var log = storage.getItem("qrLog");
-      //   if (!isUndefined(log)) {
-      //     qrLog = log;
-      //   } else {
-      //     qrLog = {};
-      //   }
-      // }
-
+    
   /**
    * @private {object} ページリスト
    */
@@ -136,18 +122,31 @@
     
     /**
      * 動物詳細情報
-     * @param {Object} data
+     * @param {Object} data 表示する動物情報{method: "bringPageTop", name: animal}
      */
     detail: function(data) {
       console.log("detail <<");
       console.log(data);
       var animalName;
+
+      // 動物名が指定されているか
       if (!isUndefinedOrNull(data) && !isUndefinedOrNull(data.name)) {
         animalName = data.name;
+      } else {
+        // 本来はありえないがエラー防止
+        data = {};
       }
-      // QRから来た時にログを記録する
-      qrLog.addLog(animalName);
-      qrLog.listLog();
+      // QRから来たかを判断する
+      if (!isUndefinedOrNull(data.qr) && data.qr) {
+        // QR読み取りボタンを禁止する
+        $("#buttonQRscan").hide();
+        // ログを記録する
+        qrLog.addLog(animalName);
+        qrLog.listLog();
+      } else {
+        // QRから来なかった場合はQR読み取りボタンを有効にする
+        $("#buttonQRscan").show();
+      }
 
       setTimeout(function() {
         for (var i = 0; i < _zooData.length; i++) {
@@ -162,18 +161,18 @@
             var classified = animal.class + ' ' + animal.order + ' ' + animal.family;
             $('#classified')[0].innerText = classified;
             $('#description')[0].innerText = animal.description;
-            if (!isUndefinedOrNull(animal.qrChecked)) {
+            // ログをしらべてトロフィーを表示する
+            // QRから来たときはすでに登録済みになっている
+            if (!isUndefinedOrNull(qrLog.getLog(animalName))) {
               $("#trophy").css("visibility", "visible");
             } else {
               $("#trophy").css("visibility", "hidden");
             }
-            if (isUndefinedOrNull(data.qrChecked)) {
-              animal.qrChecked = new Date();
-            }
             return;
           }
         }
-      },500);
+      },100);
+
       console.log("detail >>");
     },
 
@@ -322,11 +321,13 @@
           _stubCount = (_stubCount + 1) % _qrStub.length;
           decodeQrCode(qrValue);
         } else {
+          // 実機のとき
           if (window.plugins === undefined) {
             // エラーメッセージ
             $('#qrResultMessage').text('QRコードスキャナは使えません');
             return;
           } else {
+            // 実機かつカメラが使える
             window.plugins.barcodeScanner.scan(function(result) {
               // successコールバック
               if (result.cancelled) {
@@ -348,6 +349,7 @@
 
   /**
    * 結果をデコードする
+   * @param {Object} scanedValue QRコードスキャン結果
    */
   function decodeQrCode(scanedValue) {
     // 結果をデコードする
@@ -378,11 +380,7 @@
    * @return {Number} QRコードでチェックした動物数を返す
    */
   function checkedAnimals() {
-    var sum = 0;
-    for (var i = 0; i < _zooData.length; i++) {
-      sum++;
-    }
-    return sum;
+    return qrLog.countLog();
   }
   
   // addEventListener("init") の前に実行することで android 用のスタイル適用を
@@ -399,6 +397,19 @@
     var page = event.target;
     _pageList[page.id](page.data);
     console.log("page.id = " + page.id + ", page.data = " + page.data);
+    var onsNav = $("ons-navigator");
+    var nav = navigator;
+    var navKeys = Object.keys(onsNav);
+    for (var name in navKeys) {
+      console.log("name = " + onsNav[navKeys[name]]);
+    }
+
+    // ホームボタン
+    $(".home-button").click(function(event) {
+      var nav = document.querySelector("#navigator");
+      nav.resetToPage("menu.html");
+    });
+    
     console.log('init >>');
   });
 //})();

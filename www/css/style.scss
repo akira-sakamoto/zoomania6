@@ -32,10 +32,17 @@ $white:         #FFFFFF;
 .toolbar--toolbar__center,
 .toolbarIcon,
 .back-button--toolbar,
-.back-button--toolbar__label {
+.back-button--toolbar__label,
+.home-button {
     @include toolbarIcon;
 }
-
+.home-button {
+    // back-buttonから継承したい
+    height: 44px;
+    line-height: 44px;
+    padding-left: 4px;
+    font-size: 28px;
+}
 .back-button--toolbar__icon {
   fill: white;
 }
@@ -134,16 +141,29 @@ $white:         #FFFFFF;
 
 /* detail */
 #detail div p {
-  margin-left: 0.5em;
-  margin-right: 0.5em;
+  margin-left: 8px;     // 0.5em
+  margin-right: 8px;
 }
 #detail div p.jpName {
-  font-size: 24px;
-  margin-left: 0.5em;
-  margin-right: 0.5em;
+  font: {
+      size: 28px;
+      weight: bold;
+  }
+  margin: {
+      left: 8px;
+      right: 8px;
+      top: 0.5em;
+      bottom: 0.5em;
+  }
+  a {
+      text-decoration: none;
+  }
 }
 #trophy {
-  margin-left: 1em;
+  margin-left: 0.5em;
+  color: gold;
+  text-shadow: 2px 2px 4px $black000;
+  font-size: 32px;
 }
 
 /* QRscan */
@@ -264,9 +284,11 @@ ons-gesture-detector {
     border-radius: 10px;
     box-shadow: 2px 2px 3px $brown520;
 }
+// QRコードでチェックした数
 table {
     &.fee {
-        width: 100%;
+        width: 98%;
+        margin: 0 auto;
         height: auto;
         border: {
             spacing: 0;
@@ -314,7 +336,10 @@ table {
         }
     }
 }
-
+#checked_animals,
+#total_animals {
+    font-size: 18px;
+}
 ul {
     &.fee2 {
         padding-right: 1em;

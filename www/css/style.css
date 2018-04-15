@@ -8,9 +8,17 @@
 .toolbar--toolbar__center,
 .toolbarIcon,
 .back-button--toolbar,
-.back-button--toolbar__label {
+.back-button--toolbar__label,
+.home-button {
   color: white;
   text-shadow: 0 2px 0 #444;
+}
+
+.home-button {
+  height: 44px;
+  line-height: 44px;
+  padding-left: 4px;
+  font-size: 28px;
 }
 
 .back-button--toolbar__icon {
@@ -122,18 +130,28 @@
 
 /* detail */
 #detail div p {
-  margin-left: 0.5em;
-  margin-right: 0.5em;
+  margin-left: 8px;
+  margin-right: 8px;
 }
 
 #detail div p.jpName {
-  font-size: 24px;
-  margin-left: 0.5em;
-  margin-right: 0.5em;
+  font-size: 28px;
+  font-weight: bold;
+  margin-left: 8px;
+  margin-right: 8px;
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+}
+
+#detail div p.jpName a {
+  text-decoration: none;
 }
 
 #trophy {
-  margin-left: 1em;
+  margin-left: 0.5em;
+  color: gold;
+  text-shadow: 2px 2px 4px #000;
+  font-size: 32px;
 }
 
 /* QRscan */
@@ -264,7 +282,8 @@ ons-gesture-detector {
 }
 
 table.fee {
-  width: 100%;
+  width: 98%;
+  margin: 0 auto;
   height: auto;
   border-spacing: 0;
   border-collapse: collapse;
@@ -307,6 +326,11 @@ table.fee {
 
 .fee td.subtitle {
   background-color: #FFFF99;
+}
+
+#checked_animals,
+#total_animals {
+  font-size: 18px;
 }
 
 ul.fee2 {
