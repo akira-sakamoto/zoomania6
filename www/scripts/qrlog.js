@@ -76,6 +76,9 @@ QRlog.prototype.loadQRlog = function(id) {
   if (isUndefinedOrNull(this.qrLogData)) {
     this.qrLogData = JSON.parse(window.localStorage.getItem("zm_qrLogData"));
   }
+  if (isUndefinedOrNull(this.qrLogData)) {
+    this.qrLogData = [];
+  }
   var result = null;
   if (isUndefinedOrNull(id)) {
     // idが指定されないときはリスト全体を返す
@@ -148,8 +151,8 @@ QRlog.prototype.getLog = function(animalId) {
       return this.qrLogData[i];
     }
   }
-  return null;
   console.log("QRlog.getLog >>");
+  return null;
 }
 
 /**
@@ -183,6 +186,6 @@ QRlog.prototype.countLog = function() {
       sum++;
     }
   }
-  return sum;
   console.log("QRlog.countLog >>");
+  return sum;
 }

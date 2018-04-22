@@ -50,9 +50,11 @@ $white:         #FFFFFF;
   font-weight: 400;
 }
 .toolbarIcon {
-  font-size: 24px;
+  font-size: 32px;
 }
-
+#headerArea {
+    height: 44px;       // home-buttonと同じ高さ
+}
 /* page */
 .page--bgImage__background {
   background-image: url('../assets/image/bg_check.png');
@@ -138,7 +140,6 @@ $white:         #FFFFFF;
 .bookTrophy:before {
   content: "\f091";
 }
-
 /* detail */
 #detail div p {
   margin-left: 8px;     // 0.5em
@@ -159,12 +160,18 @@ $white:         #FFFFFF;
       text-decoration: none;
   }
 }
-#trophy {
-  margin-left: 0.5em;
-  color: gold;
-  text-shadow: 2px 2px 4px $black000;
-  font-size: 32px;
+.icon-trophy {
+    width: 33px;
+    height: 33px;
+    // fill: gold;
+    filter: drop-shadow(1px 1px 2px $black000);
 }
+// #trophy {
+//   margin-left: 0.5em;
+//   color: gold;
+//   text-shadow: 2px 2px 4px $black000;
+//   font-size: 32px;
+// }
 
 /* QRscan */
 .qrBody {

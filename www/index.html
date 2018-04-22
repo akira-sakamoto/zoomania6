@@ -4,6 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
   <meta http-equiv="Content-Security-Policy" content="default-src * data: gap: https://ssl.gstatic.com; style-src * 'unsafe-inline'; script-src * 'unsafe-inline' 'unsafe-eval'">
+  <meta http-equiv="chache-control" contens="no-cache">
   <script src="components/loader.js"></script>
   <script src="lib/onsenui/js/onsenui.js"></script>
   <script src="lib/jssha/src/sha.js"></script>
@@ -103,3 +104,33 @@
   </ons-template>
 </body>
 </html>
+
+
+<!-- ヘッダ用テンプレート -->
+<div id="zm_header-html" style="display:none">
+  <ons-toolbar modifier="toolbar">
+    <div class="left">
+      <ons-icon icon="fa-home" modifier="toolbar" class="home-button" id="home-button" style="display:none"></ons-icon>
+      <ons-back-button modifier="toolbar">戻る</ons-back-button>
+    </div>
+    <div class="center" id="zm_header-title">xxxx</div>
+    <div class="right">
+      <ons-toolbar-button>
+        <ons-icon icon="fa-qrcode" class="toolbarIcon" onclick="myPushPage('qrscan.html')"></ons-icon>
+      </ons-toolbar-button>
+    </div>
+  </ons-toolbar>
+</div>    
+<!--
+<ons-toolbar modifier="toolbar">
+    <div class="left">
+      <ons-back-button modifier="toolbar">戻る</ons-back-button>
+    </div>
+    <div class="center">大人の方へ</div>
+    <div class="right">
+      <ons-toolbar-button>
+        <ons-icon icon="fa-qrcode" class="toolbarIcon" onclick="myPushPage('qrscan.html')"></ons-icon>
+      </ons-toolbar-button>
+    </div>
+  </ons-toolbar>
+-->

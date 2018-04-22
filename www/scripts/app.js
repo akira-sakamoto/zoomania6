@@ -152,7 +152,7 @@
         for (var i = 0; i < _zooData.length; i++) {
           var animal = _zooData[i];
           if (animal.jpName === animalName) {
-            $('#title')[0].innerText = animal.jpName;
+            $('#zm_header-title')[0].innerText = animal.jpName;
             $('#photo').attr('src', animal.urlPhoto);
             $('#urlWiki').attr('href', animal.urlWiki);
             $('#jpName')[0].innerText = animal.jpName;
@@ -300,52 +300,54 @@
      * QRコードスキャン
      */
     qrscan: function() {
-      console.log('_pageList.qrscan <<');
-      $('#qrScanButton').click(function() {
-        scanBarcode();
-        return false;
-      });
-      
-      /**
-       * スキャンボタン押下時
-       */
-      function scanBarcode() {
-        if (isEmulator()) {
-          // 実機ではないとき
-
-          var qrValue = {
-            format: "xx",
-            cancelled: ""
-          };
-          qrValue.text = _qrStub[_stubCount];
-          _stubCount = (_stubCount + 1) % _qrStub.length;
-          decodeQrCode(qrValue);
-        } else {
-          // 実機のとき
-          if (window.plugins === undefined) {
-            // エラーメッセージ
-            $('#qrResultMessage').text('QRコードスキャナは使えません');
-            return;
-          } else {
-            // 実機かつカメラが使える
-            window.plugins.barcodeScanner.scan(function(result) {
-              // successコールバック
-              if (result.cancelled) {
-                // キャンセルされたらなにもしない
-                return;
-              }
-              // デコード
-              decodeQrCode(result);
-            }, function(error) {
-              // エラーコールバック
-              $('#qrResultMessage').text(error);
-            });
-          }        
-        }
-        console.log('_pageList.qrscan <<');
-      }
+      console.log("_pageList.qrscan <<");
+      // $('#qrScanButton').click(function() {
+      //   scanBarcode();
+      //   return false;
+      // });
+      scanBarcode();
+      console.log("_pageList.qrscan >>");
     }
   };
+
+  /**
+   * スキャンボタン押下時
+   */
+  function scanBarcode() {
+    console.log("scanBarcode <<");
+    if (isEmulator()) {
+      // 実機ではないとき
+
+      var qrValue = {
+        format: "xx",
+        cancelled: ""
+      };
+      qrValue.text = _qrStub[_stubCount];
+      _stubCount = (_stubCount + 1) % _qrStub.length;
+      decodeQrCode(qrValue);
+    } else {
+      // 実機のとき
+      if (window.plugins === undefined) {
+        // エラーメッセージ
+        $('#qrResultMessage').text('QRコードスキャナは使えません');
+      } else {
+        // 実機かつカメラが使える
+        window.plugins.barcodeScanner.scan(function(result) {
+          // successコールバック
+          if (result.cancelled) {
+            // キャンセルされたらなにもしない
+          } else {
+            // デコード
+            decodeQrCode(result);
+          }
+        }, function(error) {
+          // エラーコールバック
+          $('#qrResultMessage').text(error);
+        });
+      }        
+    }
+    console.log('scanBarcode <<');
+  }
 
   /**
    * 結果をデコードする
@@ -392,10 +394,34 @@
   // ページ遷移ごとに実行される  
   document.addEventListener('init', function(event) {
     console.log('init <<');
-    
+
+    var nav = nowPage();
+    debugPageList();
+
+    // ヘッダを作る
+    var target = $(nav).find("#headerArea");
+    // var target = $("#headerArea");
+    if (!isUndefinedOrNull(target)) {
+      var header = $("#zm_header-html").clone();
+      var title = $(target).attr("title");
+      if (!isUndefinedOrNull(title)) {
+        $(header).find("#zm_header-title").text(title);
+      }
+      var home = $(target).attr("home");
+      if (!isUndefinedOrNull(home)) {
+        $(header).find("#home-button").show();
+      }
+      $(header).appendTo(target).show();
+
+      // ホームボタン
+      $(".home-button").click(function(event) {
+        var nav = document.querySelector("#navigator");
+        nav.resetToPage("menu.html");
+      });
+    }
+
     // 各ページごとにコントローラを設定する
     var page = event.target;
-    _pageList[page.id](page.data);
     console.log("page.id = " + page.id + ", page.data = " + page.data);
     var onsNav = $("ons-navigator");
     var nav = navigator;
@@ -403,13 +429,8 @@
     for (var name in navKeys) {
       console.log("name = " + onsNav[navKeys[name]]);
     }
+    _pageList[page.id](page.data);
 
-    // ホームボタン
-    $(".home-button").click(function(event) {
-      var nav = document.querySelector("#navigator");
-      nav.resetToPage("menu.html");
-    });
-    
     console.log('init >>');
   });
 //})();
@@ -443,10 +464,10 @@ function myPushPage(page, option) {
   }
   var nav = document.querySelector('#navigator');
   //if (method === "bringPageTop") {
-    nav.bringPageTop(page, options);
-  //} else {
-  //  nav.pushPage(page, options);
-  //}
+    // nav.bringPageTop(page, options);
+  // } else {
+     nav.pushPage(page, options);
+  // }
   console.log('myPushPage >>');
 }
 
@@ -527,4 +548,43 @@ function getGesture(event) {
  */
 function isEmulator() {
   return typeof cordova === "undefined";
+}
+
+/**
+ * 現在のページを取得する
+ * @param {String} pageId 探したいページID
+ * @return {DOM} 現在ページのDOM要素を返す
+ */
+function nowPage(pageId) {
+  console.log("nowPage << " + pageId);
+  var nav = document.querySelector("ons-navigator");
+  var childNodes = $(nav).find("ons-page");
+  console.log("nowPage: length = " + childNodes.length);
+  var ret = nav;
+  for (var i = (childNodes.length - 1); i >= 0; i--) {
+    var child = childNodes[i];
+    console.log("nowPage = " + child.id);
+    if ($(child).css("display") != "none") {
+      if (!isUndefinedOrNull(pageId)) {
+        if (child.id === pageId) {
+          ret = child;
+          break;
+        }
+      } else {
+        ret = child;
+        break;
+      }
+    }
+  }
+  console.log("nowPage >> " + ret);
+  return ret;
+}
+
+function debugPageList() {
+  var nav = document.querySelector("ons-navigator");
+  var childNodes = $(nav).find("ons-page");
+  for (var i = (childNodes.length - 1); i >= 0; i--) {
+    var child = childNodes[i];
+    console.log("debugPageList " + i + " " + child.id);
+  }
 }

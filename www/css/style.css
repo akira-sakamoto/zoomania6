@@ -30,7 +30,11 @@
 }
 
 .toolbarIcon {
-  font-size: 24px;
+  font-size: 32px;
+}
+
+#headerArea {
+  height: 44px;
 }
 
 /* page */
@@ -147,11 +151,10 @@
   text-decoration: none;
 }
 
-#trophy {
-  margin-left: 0.5em;
-  color: gold;
-  text-shadow: 2px 2px 4px #000;
-  font-size: 32px;
+.icon-trophy {
+  width: 33px;
+  height: 33px;
+  filter: drop-shadow(1px 1px 2px #000);
 }
 
 /* QRscan */
