@@ -13,7 +13,7 @@ var logStruct = {
  * @class QRlog
  */
 function QRlog() {
-  console.log("QRlog.constructor <<");
+  // console.log("QRlog.constructor <<");
   // 最後のアクセス時間を取得して this.lastLogDate にセットする
   this.getLastLogDate();
 
@@ -39,7 +39,7 @@ function QRlog() {
     this.setLastLogDate(nowDate);
     this.qrLogData = [];
   }
-  console.log("QRlog.constructor >>");
+  // console.log("QRlog.constructor >>");
 }
 
 /**
@@ -47,11 +47,11 @@ function QRlog() {
  * @return {Object}   最終アクセス時間を返す
  */
 QRlog.prototype.getLastLogDate = function() {
-  console.log("QRlog.getLastLogDate <<");
+  // console.log("QRlog.getLastLogDate <<");
   if (isUndefinedOrNull(this.lastLogDate)) {
     this.lastLogDate = JSON.parse(window.localStorage.getItem("zm_lastLogDate"));
   }
-  console.log("QRlog.getLastLogDate >> " + this.lastLogDate);
+  // console.log("QRlog.getLastLogDate >> " + this.lastLogDate);
   return this.lastLogDate;
 }
 
@@ -60,10 +60,10 @@ QRlog.prototype.getLastLogDate = function() {
  * @param {Object} date   最終アクセス時間
  */
 QRlog.prototype.setLastLogDate = function(date) {
-  console.log("QRlog.setLastLogDate <<");
+  // console.log("QRlog.setLastLogDate <<");
   this.lastLogDate = date;
   window.localStorage.setItem("zm_lastLogDate", JSON.stringify(date));
-  console.log("QRlog.setLastLogDate >>");
+  // console.log("QRlog.setLastLogDate >>");
 }
 
 /**
@@ -72,7 +72,7 @@ QRlog.prototype.setLastLogDate = function(date) {
  * @return {Object} ログデータ全体あるいは指定されたデータを返す
  */
 QRlog.prototype.loadQRlog = function(id) {
-  console.log("QRlog.loadQRlog <<");
+  // console.log("QRlog.loadQRlog <<");
   if (isUndefinedOrNull(this.qrLogData)) {
     this.qrLogData = JSON.parse(window.localStorage.getItem("zm_qrLogData"));
   }
@@ -92,7 +92,7 @@ QRlog.prototype.loadQRlog = function(id) {
       }
     }
   }
-  console.log("QRlog.loadQRlog >>");
+  // console.log("QRlog.loadQRlog >>");
   return result;
 }
 
@@ -100,11 +100,11 @@ QRlog.prototype.loadQRlog = function(id) {
  * ログデータを保存する
  */
 QRlog.prototype.saveQRlog = function() {
-  console.log("QRlog.saveQRlog <<");
+  // console.log("QRlog.saveQRlog <<");
   if (!isUndefinedOrNull(this.qrLogData)) {
     window.localStorage.setItem("zm_qrLogData", JSON.stringify(this.qrLogData));
   }
-  console.log("QRlog.saveQRlog >>");
+  // console.log("QRlog.saveQRlog >>");
 }
 
 /**
@@ -112,7 +112,7 @@ QRlog.prototype.saveQRlog = function() {
  * @param {String} animalId 動物ID
  */
 QRlog.prototype.addLog = function(animalId) {
-  console.log("QRlog.addLog << " + animalId);
+  // console.log("QRlog.addLog << " + animalId);
   // 現在時刻を取得する
   var date = new Date();
   var log = {};
@@ -134,7 +134,7 @@ QRlog.prototype.addLog = function(animalId) {
   // 最終アクセス時間をセットする
   this.setLastLogDate(date);
 
-  console.log("QRlog.addLog >>");
+  // console.log("QRlog.addLog >>");
 }
 
 /**
@@ -143,7 +143,7 @@ QRlog.prototype.addLog = function(animalId) {
  * @return {Object} 見つけたログデータを返す
  */
 QRlog.prototype.getLog = function(animalId) {
-  console.log("QRlog.getLog <<");
+  // console.log("QRlog.getLog <<");
 
   // 既に登録済みかを探す
   for (var i = 0; i < this.qrLogData.length; i++) {
@@ -151,27 +151,27 @@ QRlog.prototype.getLog = function(animalId) {
       return this.qrLogData[i];
     }
   }
-  console.log("QRlog.getLog >>");
+  // console.log("QRlog.getLog >>");
   return null;
 }
 
 /**
- * console.logとしてログを表示する
+ * // console.logとしてログを表示する
  */
 QRlog.prototype.listLog = function() {
-  console.log("QRlog.listLog <<");
+  // console.log("QRlog.listLog <<");
   // 最終アクセス時間
   var date = this.getLastLogDate();
-  console.log("lastLogDate: " + date);
+  // console.log("lastLogDate: " + date);
 
   // ログデータ
   for (var i = 0; i < this.qrLogData.length; i++) {
     var item = this.qrLogData[i];
     var dd = item.date.toLocaleString();
     var str = sprintf("%2d %30s %4d %s", i, item.id, item.count, dd);
-    console.log(str);
+    // console.log(str);
   }
-  console.log("QRlog.listLog >>");
+  // console.log("QRlog.listLog >>");
 }
 
 /**
@@ -179,13 +179,13 @@ QRlog.prototype.listLog = function() {
  * @return {Number} ログをチェックした数
  */
 QRlog.prototype.countLog = function() {
-  console.log("QRlog.countLog <<");
+  // console.log("QRlog.countLog <<");
   var sum = 0;
   for (var i = 0; i < this.qrLogData.length; i++) {
     if (this.qrLogData[i].count > 0) {
       sum++;
     }
   }
-  console.log("QRlog.countLog >>");
+  // console.log("QRlog.countLog >>");
   return sum;
 }
