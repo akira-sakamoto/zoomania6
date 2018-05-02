@@ -1,34 +1,44 @@
+<!-- 大人の方へ -->
 <ons-page id="help" modifier="bgImage">
   <div id="headerArea" title="大人の方へ"></div>
-    <!-- ツールバー -->
-    <!--
-    <ons-toolbar modifier="toolbar">
-      <div class="left">
-        <ons-back-button modifier="toolbar">戻る</ons-back-button>
-      </div>
-      <div class="center">大人の方へ</div>
-      <div class="right">
-        <ons-toolbar-button>
-          <ons-icon icon="fa-qrcode" class="toolbarIcon" onclick="myPushPage('qrscan.html')"></ons-icon>
-        </ons-toolbar-button>
-      </div>
-    </ons-toolbar>
-  -->
-    <!-- 本体だよ -->
-    <ul>
-        <li>利用規約（別画面）</li>
-        <li>ヘルプ</li>
-        <li>クレジット<br/>制作会社：<a href="http://araten.co.jp/" target="_blank">アラテン株式会社</a></li>
-        <li>素材使用情報</li>
-        <li>アップデート情報</li>
-    </ul>
+  <!-- 本体だよ -->
+  <ons-list modifier="to-parents">
+    <ons-list-item>
+      <ons-button modifier="large" class="myMenu">
+        <img src="assets/image/icon_terms.png" class="mini_icon">
+        利用規約
+      </ons-button>
+    </ons-list-item>
 
-<footer id="footer">
+    <ons-list-item>
+      <ons-button modifier="large" class="myMenu">
+        <img src="assets/image/icon_help.png" class="mini_icon">ヘルプ
+      </ons-button>
+    </ons-list-item>
+
+    <ons-list-item>
+      <ons-button modifier="large" class="myMenu">
+          <img src="assets/image/icon_building.png" class="mini_icon">制作会社：<a href="http://araten.co.jp/" target="_blank">アラテン株式会社</a>
+      </ons-button>
+    </ons-list-item>
+
+    <ons-list-item>
+      <ons-button modifier="large" class="myMenu" onclick="myPushPage('license.html')">
+          <img src="assets/image/icon_license.png" class="mini_icon">ライセンス
+      </ons-button>
+    </ons-list-item>
+    <!--
+    <ons-list-item>素材使用情報</ons-list-item>
+    <ons-list-item>アップデート情報</ons-list-item>
+    -->
+  </ons-list>
+
+  <footer id="footer">
     <center>
       <img src="assets/image/footer_pic.png" width="95%" height="auto" border="none">
       <a href="http://araten.co.jp/" target="_blank">©ARATEN 2018</a>
     </center>
-</footer>
+  </footer>
 
 </ons-page>
 

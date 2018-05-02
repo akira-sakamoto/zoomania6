@@ -544,3 +544,31 @@ ons-list-item.list-item {
 .list-item__center {
   padding: 0;
 }
+
+@mixin myMargin($mg:0.25em) {
+    margin: {
+        left: $mg;
+        right: $mg;
+    }
+}
+/* 大人の方へ */
+.list--to-parents {
+    background-color: rgba(0,0,0,0);        // ons-listの背景色を消す
+    @include myMargin();
+    padding-top: 2em;                         // margin-topだと!importantが必要になるから
+}
+
+/* ライセンス */
+.license-page {
+    @include myMargin();
+    h1 {
+        background-color: $gray444;
+        color: $white;
+        @include myMargin();
+        padding: {
+            left: 0.25em;
+            right: 0.25em;
+        }
+
+    }
+}

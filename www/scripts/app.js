@@ -329,6 +329,14 @@ ons.ready(function() {
     },
 
     /**
+     * ライセンス
+     */
+    license: function() {
+      console.log("_pageList.license <<");
+      console.log("_pageList.license >>");
+    },
+    
+    /**
      * QRコードスキャン
      */
     qrscan: function() {

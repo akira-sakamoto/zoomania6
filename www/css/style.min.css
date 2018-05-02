@@ -162,4 +162,12 @@ table.event { margin: 0; padding: 0; width: 80%; height: auto; box-shadow: 2px 2
 ons-list-item.list-item { padding-left: 0px; }
 
 .list-item__center { padding: 0; }
+
+/* 大人の方へ */
+.list--to-parents { background-color: transparent; margin-left: 0.25em; margin-right: 0.25em; padding-top: 2em; }
+
+/* ライセンス */
+.license-page { margin-left: 0.25em; margin-right: 0.25em; }
+
+.license-page h1 { background-color: #444; color: #FFFFFF; margin-left: 0.25em; margin-right: 0.25em; padding-left: 0.25em; padding-right: 0.25em; }
 /*# sourceMappingURL=style.min.css.map */

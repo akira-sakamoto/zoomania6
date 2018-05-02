@@ -519,4 +519,27 @@ ons-list-item.list-item {
 .list-item__center {
   padding: 0;
 }
+
+/* 大人の方へ */
+.list--to-parents {
+  background-color: transparent;
+  margin-left: 0.25em;
+  margin-right: 0.25em;
+  padding-top: 2em;
+}
+
+/* ライセンス */
+.license-page {
+  margin-left: 0.25em;
+  margin-right: 0.25em;
+}
+
+.license-page h1 {
+  background-color: #444;
+  color: #FFFFFF;
+  margin-left: 0.25em;
+  margin-right: 0.25em;
+  padding-left: 0.25em;
+  padding-right: 0.25em;
+}
 /*# sourceMappingURL=style.css.map */
