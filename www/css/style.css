@@ -449,6 +449,68 @@ table.event {
   border-radius: 16px;
 }
 
+.stamp_base {
+  position: relative;
+  width: 100%;
+  height: 206px;
+}
+
+.stamp_base div.stamp_outer {
+  width: 100%;
+  height: 100%;
+}
+
+.stamp_base div.stamp_outer {
+  position: absolute;
+  top: 0;
+}
+
+.stamp_base div.stamp_inner {
+  position: absolute;
+  width: auto;
+  height: auto;
+}
+
+.stamp_base img.bingo_base {
+  border: none;
+  z-index: 100;
+}
+
+.stamp_base ul {
+  list-style-type: none;
+  font-size: 0;
+  padding: 0;
+  z-index: 101;
+}
+
+.stamp_base ul:first-child {
+  top: 0;
+  left: 0;
+}
+
+.stamp_base li {
+  display: inline-block;
+}
+
+.bingo_thumbnail {
+  width: 65px;
+  height: 54px;
+  object-fit: cover;
+}
+
+.bingo_animation {
+  transition: transform 0.5s linear;
+  transform: scale(4, 4);
+  color: #FF3333;
+  text-shadow: 1px -1px 1px #FFFFFF, 1px 1px 1px #FFFFFF, -1px 1px 1px #FFFFFF, -1px -1px 1px #FFFFFF;
+}
+
+.centering {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 /* メニューをくっつける */
 ons-list-item.list-item {
   padding-left: 0px;

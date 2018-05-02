@@ -28,6 +28,11 @@ var _stubCount = 0;
 var _zooData = [];
 
 /**
+ * ビンゴテーブル
+ */
+var _bingoSheet = [];
+
+/**
  * monacaデバッガと連動するconsoleを無効化する
  * @param {*} level 
  * @param {*} url 
@@ -57,6 +62,11 @@ ons.ready(function() {
     $.getJSON("assets/zoodata.json", function(data) {
       _zooData = data;
       console.log("zoodata is loaded");
+      // ビンゴシートを用意する
+      if (isUndefinedOrNull(loadBingo())) {
+        // ビンゴの準備
+        makeBingo();
+      }
     });
   }
 
@@ -296,6 +306,9 @@ ons.ready(function() {
       var checked_animal = checkedAnimals();
       $page.find("#checked_animals").text(checked_animal);
       $page.find("#total_animals").text(_zooData.length);
+
+      // ビンゴを表示する
+      showBingo();
       console.log("_pageList.pleasure >>");
     },
 
@@ -565,7 +578,113 @@ function checkParameters(params) {
   return true;
 }
 
+/**
+ * ビンゴを用意する
+ */
+function makeBingo() {
+  console.log("makeBingo <<");
+  // テーブルリセット
+  _bingoSheet = [];
+  // 誰もが同じ結果になるように日付をキーにする
+  var date = new Date();
+  var seed = (date.getFullYear() * 10000) + ((date.getMonth() + 1) * 100) + date.getDate();
+  // 最初の動物を決定する
+  var start = seed % _zooData.length;
+  // 収集する間隔を曜日から決定する
+  var skip = _zooData.length % (date.getDay() + 1);
+  // 複数回選択しないように
+  var usedAnimal = [];
+  for (var i = 0; i < _zooData.length; i++) {
+    usedAnimal[i] = 0;
+  }
+  var index = start;
+  // ビンゴシートのポジション数は9
+  for (var i = 0; i < 9; i++) {
+    // 未使用の動物を探す
+    if (usedAnimal[index] === 0) {
+      usedAnimal[index] = 1;
+      // シートのポジションは乱数で決定
+      var randomPosition;
+      do {
+        randomPosition = Math.floor(Math.random() * 9);
+      } while(!isUndefinedOrNull(_bingoSheet[randomPosition]));
+      _bingoSheet[randomPosition] = index;
+    }
+    index += skip;
+  }
+  // ビンゴシートを保存する
+  window.localStorage.setItem("zm_bingoSheet", JSON.stringify(_bingoSheet));
+  console.log("makeBingo >>");
+}
 
+/**
+ * ローカルストレージからビンゴシートを取得する
+ * @return {Object} 保存していたビンゴシートを返す
+ */
+function loadBingo() {
+  console.log("loadBingo --");
+  var sheet = window.localStorage.getItem("zm_bingoSheet");
+  if (!isUndefinedOrNull(sheet)) {
+    // 保存してあればビンゴシートとして使用する
+    _bingoSheet = JSON.parse(sheet);
+  }
+  return sheet;
+}
+
+/**
+ * ビンゴシートを表示する
+ */
+function showBingo() {
+  console.log("showBingo <<");
+  const PANELID = ["00", "01", "02", "10", "11", "12", "20", "21", "22"];
+  var $page = $(nowPage());
+
+  for (var i = 0; i < 9; i++) {
+    var idx = _bingoSheet[i];
+    var animal = _zooData[idx];
+    console.log(i + " " + animal.jpName);
+    // QRを読んでいれば置換する
+    var log = qrLog.getLog(animal.jpName);
+    if (!isUndefinedOrNull(log)) {
+      var thumbnail = "assets/image/thumbnails/" + animal.thumbnail;
+      var panel = $page.find("#bingo_" + PANELID[i]);
+      panel.attr("src", thumbnail).addClass("hit");
+    }
+  }
+  // hitチェック
+  const checkList = [
+    ["00", "01", "02"],
+    ["10", "11", "12"],
+    ["20", "21", "22"],
+    ["00", "10", "20"],
+    ["01", "11", "21"],
+    ["02", "12", "22"],
+    ["00", "11", "22"],
+    ["02", "11", "20"]
+  ];
+  var bingo = false;
+  for (var i = 0; i < checkList.length; i++) {
+    bingo = checkBingo(checkList[i]);
+    if (bingo) {
+      // bingoしたら1秒後にアニメーション
+      setTimeout(function() {
+        $page.find("#label_bingo").show().addClass("bingo_animation");
+      }, 1000);
+      break;
+    }
+  }
+  console.log("showBingo >>");
+
+  // ビンゴチェック
+  function checkBingo(list) {
+    var count = 0;
+    for (var i = 0; i < 3; i++) {
+      var elem = $page.find("#bingo_" + list[i]);
+      count += (elem.is(".hit") ? 1 : 0);
+    }
+    return (count === 3);
+  }
+}
 /**
  * event.gesture を取り出す
  * @param {Event} event
