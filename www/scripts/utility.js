@@ -124,3 +124,24 @@ function getNowPage(pageId) {
   // ons-pageがまったく見つからなかった
   return undefined;
 }
+
+/**
+ * monacaデバッガと連動するconsoleを無効化する
+ * @param {*} level 
+ * @param {*} url 
+ * @param {*} line 
+ * @param {*} char 
+ * @param {*} arguments 
+ */
+var myConsoleLog = function(level, url, line, char, arguments) {
+  // 普通にconsole.xxxを使用するとmonacaデバッガへ通信を行おうとして大量にエラーが発生するからそれを抑制する
+  var message;
+  for (var i = 0; i < arguments.length; i++){
+      if (typeof arguments[i] == "string") {
+          message = arguments[i];
+      } else {
+          message = JSON.stringify(arguments[i]);
+      }
+      window.orig_console[level](message);
+  }
+}

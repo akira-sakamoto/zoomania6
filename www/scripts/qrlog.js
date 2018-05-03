@@ -49,7 +49,12 @@ function QRlog() {
 QRlog.prototype.getLastLogDate = function() {
   // console.log("QRlog.getLastLogDate <<");
   if (isUndefinedOrNull(this.lastLogDate)) {
-    this.lastLogDate = JSON.parse(window.localStorage.getItem("zm_lastLogDate"));
+    try {
+      this.lastLogDate = JSON.parse(window.localStorage.getItem("zm_lastLogDate"));
+    } catch(e) {
+      // localStorageが壊れていた
+      this.lastLogData = null;
+    }
   }
   // console.log("QRlog.getLastLogDate >> " + this.lastLogDate);
   return this.lastLogDate;

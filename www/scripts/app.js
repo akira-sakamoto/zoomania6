@@ -33,24 +33,17 @@ var _zooData = [];
 var _bingoSheet = [];
 
 /**
- * monacaデバッガと連動するconsoleを無効化する
- * @param {*} level 
- * @param {*} url 
- * @param {*} line 
- * @param {*} char 
- * @param {*} arguments 
+ * ソフトリセット
  */
-var myConsoleLog = function(level, url, line, char, arguments) {
-  // 普通にconsole.xxxを使用するとmonacaデバッガへ通信を行おうとして大量にエラーが発生するからそれを抑制する
-  var message;
-  for (var i=0; i<arguments.length; i++){
-      if (typeof arguments[i] == "string") {
-          message = arguments[i];
-      } else {
-          message = JSON.stringify(arguments[i]);
-      }
-      window.orig_console[level](message);
+function softReset() {
+  // ビンゴシートを用意する
+  if (isUndefinedOrNull(loadBingo())) {
+    // ビンゴの準備
+    makeBingo();
   }
+  // QRコードをリセットする
+  // ログシステム初期化
+  qrLog = new QRlog();
 }
 
 /**
@@ -62,11 +55,7 @@ ons.ready(function() {
     $.getJSON("assets/zoodata.json", function(data) {
       _zooData = data;
       console.log("zoodata is loaded");
-      // ビンゴシートを用意する
-      if (isUndefinedOrNull(loadBingo())) {
-        // ビンゴの準備
-        makeBingo();
-      }
+      softReset();      
     });
   }
 
@@ -84,8 +73,6 @@ ons.ready(function() {
     }
   }
 
-  // ログシステム初期化
-  qrLog = new QRlog();
   
   /**
    * @private {object} ページリスト
@@ -179,7 +166,9 @@ ons.ready(function() {
             $page.find("#zlName")[0].innerText = animal.zlName;
             var classified = animal.class + " " + animal.order + " " + animal.family;
             $page.find("#classified")[0].innerText = classified;
-            $page.find("#description")[0].innerText = animal.description;
+            if (!isUndefinedOrNull(animal.description)) {
+              $page.find("#description")[0].innerText = animal.description;
+            }
             // ログをしらべてトロフィーを表示する
             // QRから来たときはすでに登録済みになっている
             if (!isUndefinedOrNull(qrLog.getLog(animalName))) {
@@ -221,8 +210,9 @@ ons.ready(function() {
         var naturalH = mapImg.naturalHeight;
 
         // 描画領域のサイズ
-        var areaW = $("ons-gesture-detector").width();
-        var areaH = $("ons-gesture-detector").height();
+        var $detector = $($page.find("ons-gesture-detector"));
+        var areaW = $detector.width();
+        var areaH = $detector.height();
 
         // スケール
         var scaleW = areaW / naturalW;
@@ -290,6 +280,14 @@ ons.ready(function() {
     },
 
     /**
+     * サブメニュー
+     */
+    contents: function() {
+      console.log("_pageList.contents <<");
+      console.log("_pageList.contents >>");
+    },
+
+    /**
      * ヘルプ
      */
     help: function() {
@@ -308,15 +306,40 @@ ons.ready(function() {
       $page.find("#total_animals").text(_zooData.length);
 
       // ビンゴを表示する
-      showBingo();
+      var bingo = showBingo();
+
+      // スタンプラリーをリセットする
+      // スタンプラリーのラベル部分を長押しすることでリセットする
+      $($page.find("#bingo")).on("hold", function(e) {
+        if (bingo) {
+          ons.notification.confirm({
+            title: "係員専用",
+            message: "スタンプラリーを初期化してもいいですか？",
+            callback: function(answer) {
+              if (answer === 1) {
+                window.localStorage.clear();
+                // ビンゴシートを初期化
+                softReset();
+                var nav = document.querySelector("#navigator");
+                nav.resetToPage("menu.html");
+              }
+            }
+          });
+        }
+      });
       console.log("_pageList.pleasure >>");
     },
 
     /**
      * 飼育員ブログ
      */
-    blog: function() {
+    blog: function(param) {
       console.log("_pageList.blog <<");
+      if (!isUndefinedOrNull(param.url)) {
+        var $page = $(nowPage());
+        $page.find("#zm_header-title").text(param.title);
+        $page.find("#iframe").attr("src", param.url);
+      }
       console.log("_pageList.blog >>");
     },
 
@@ -341,11 +364,6 @@ ons.ready(function() {
      */
     qrscan: function() {
       console.log("_pageList.qrscan <<");
-      $("#qrScanButton").click(function() {
-        scanBarcode();
-        return false;
-      });
-      // scanBarcode();
       console.log("_pageList.qrscan >>");
     }
   }; // _pageList
@@ -399,7 +417,7 @@ ons.ready(function() {
  * スキャンボタン押下時
  */
 function scanBarcode() {
-  console.log("scanBarcode <<");
+  console.log("scanBarcode << " + _stubCount);
   if (isEmulator()) {
     // 実機ではないとき
     var qrValue = {};
@@ -493,9 +511,19 @@ function myPushPage(page, option) {
   if (!isUndefinedOrNull(option)) {
     if (typeof option === "object") {
       // QRスキャンで来たときはオブジェクトで渡される
-      animalName = option.name;
-      method = option.method;
-      data.qr = true;
+      if (!isUndefinedOrNull(option.url)) {
+        switch (option.url.toLowerCase()) {
+          case "terms":
+          case "company":
+            data.title = option.title;
+            data.url = "http://araten.co.jp";
+        }
+      } else {
+        // homepage以外はQRから来た動物情報とみなす
+        animalName = option.name;
+        method = option.method;
+        data.qr = true;
+      }
     } else if (typeof option === "string") {
       // 動物リストをクリックされたときは動物名が直接渡される
       animalName = option.trim();
@@ -510,11 +538,14 @@ function myPushPage(page, option) {
     __global_myPushPageCounter = 0;
   }
 
-  var x = document.querySelectorAll("#navigator");
+  // var x = document.querySelectorAll("#navigator");
   var nav = document.querySelector("#navigator");
   //if (method === "bringPageTop") {
     // nav.bringPageTop(page, options);
   // } else {
+
+  // ホームページ遷移は options.url
+  // 動物図鑑は options.data
   if (__global_myPushPageCounter === 0) {
     __global_myPushPageCounter++;
     nav.pushPage(page, options)
@@ -599,7 +630,8 @@ function makeBingo() {
   // 最初の動物を決定する
   var start = seed % _zooData.length;
   // 収集する間隔を曜日から決定する
-  var skip = _zooData.length % (date.getDay() + 1);
+  // mod が 0 になることがあるので +1 しておく
+  var skip = (_zooData.length % (date.getDay() + 1)) + 1;
   // 複数回選択しないように
   var usedAnimal = [];
   for (var i = 0; i < _zooData.length; i++) {
@@ -641,6 +673,7 @@ function loadBingo() {
 
 /**
  * ビンゴシートを表示する
+ * @return {Boolean}  ビンゴになったことを返す(true)
  */
 function showBingo() {
   console.log("showBingo <<");
@@ -682,6 +715,7 @@ function showBingo() {
     }
   }
   console.log("showBingo >>");
+  return bingo;
 
   // ビンゴチェック
   function checkBingo(list) {

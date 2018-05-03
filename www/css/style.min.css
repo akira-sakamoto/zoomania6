@@ -170,4 +170,21 @@ ons-list-item.list-item { padding-left: 0px; }
 .license-page { margin-left: 0.25em; margin-right: 0.25em; }
 
 .license-page h1 { background-color: #444; color: #FFFFFF; margin-left: 0.25em; margin-right: 0.25em; padding-left: 0.25em; padding-right: 0.25em; }
+
+/* ヘルプ */
+#help main { margin-left: 0.25em; margin-right: 0.25em; }
+
+#help h1 { color: #552200; padding-top: 0.25em; border-bottom: 1px solid #444; font-size: 18px; font-weight: bold; }
+
+#help ul { list-style-type: none; padding-left: 1em; }
+
+#help li { margin-left: 1em; margin-right: 1em; }
+
+#help li:first-child { font-weight: bold; margin-left: 0.25em; margin-right: 0.25em; }
+
+#help p { margin-left: 1em; margin-right: 1em; }
+
+#help div .center { text-align: center; }
+
+#help div .center img { width: 50%; box-shadow: 2px 2px 2px #222; border: 1px solid #222; }
 /*# sourceMappingURL=style.min.css.map */

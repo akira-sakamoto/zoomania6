@@ -1,45 +1,50 @@
-<!-- 大人の方へ -->
 <ons-page id="help" modifier="bgImage">
-  <div id="headerArea" title="大人の方へ"></div>
-  <!-- 本体だよ -->
-  <ons-list modifier="to-parents">
-    <ons-list-item>
-      <ons-button modifier="large" class="myMenu">
-        <img src="assets/image/icon_terms.png" class="mini_icon">
-        利用規約
-      </ons-button>
-    </ons-list-item>
+  <!-- ツールバー -->
+  <div id="headerArea" title="ヘルプ"></div>
 
-    <ons-list-item>
-      <ons-button modifier="large" class="myMenu">
-        <img src="assets/image/icon_help.png" class="mini_icon">ヘルプ
-      </ons-button>
-    </ons-list-item>
+  <main>
+  <h1>機能</h1>
+  <ul>
+      <li>園内マップ</li>
+      <li>宇都宮動物園の園内マップを表示します。</li>
+  </ul>
+  <ul>
+    <li>動物図鑑</li>
+    <li>宇都宮動物園で飼育している動物たちの説明を表示します。</li>
+  </ul>
+  <ul>
+      <li>QRコード</li>
+      <li>園内の動物説明に貼ってあるQRコードを読み取ると動物の説明を見ることができます。</li>
+      <li>QRコードで読み取るとスタンプラリーに参加できます。</li>
+      <li>QRコードを読み取るには画面の一番上にあるQRコードアイコンをタップしてください。</li>
+  </ul>
+  <div class="center">
+      <img src="assets/image/qr_button.png">
+  </div>
+  <ul>
+    <li>おたのしみ</li>
+    <li>スタンプラリーでビンゴができるとすてきなプレゼントを差し上げます。</li>
+  </ul>
 
-    <ons-list-item>
-      <ons-button modifier="large" class="myMenu">
-          <img src="assets/image/icon_building.png" class="mini_icon">制作会社：<a href="http://araten.co.jp/" target="_blank">アラテン株式会社</a>
-      </ons-button>
-    </ons-list-item>
+  <h1>QRコード読み取り</h1>
+  <p>アプリの右上にあるQRコード読み取りボタンをタップしてください。</p>
+  <p>園内の看板に添付されているQRコードを読み取ります。</p>
+  <p>読み取りに成功すると動物の詳細情報を見ることができます。</p>
+  <p>読み取った動物は自動的にスタンプラリーに登録されます。</p>
 
-    <ons-list-item>
-      <ons-button modifier="large" class="myMenu" onclick="myPushPage('license.html')">
-          <img src="assets/image/icon_license.png" class="mini_icon">ライセンス
-      </ons-button>
-    </ons-list-item>
-    <!--
-    <ons-list-item>素材使用情報</ons-list-item>
-    <ons-list-item>アップデート情報</ons-list-item>
-    -->
-  </ons-list>
+  <h1>スタンプラリー</h1>
+  <p><b>おたのしみ</b>ページを開いてください。</p>
+  <p>QRコードで読み取った動物が縦横斜めに３つそろうとビンゴが成立します。</p>
+  <p>ビンゴ画面を係員にお見せください。すてきなプレゼントを差し上げます。</p>
+  <p>スタンプラリーは日が変わるとリセットされます。</p>
+  <div class="center">
+    <img src="assets/image/bingo_sample.png">
+  </div>
+  </main>
 
   <footer id="footer">
-    <center>
-      <img src="assets/image/footer_pic.png" width="95%" height="auto" border="none">
-      <a href="http://araten.co.jp/" target="_blank">©ARATEN 2018</a>
+    <center><img src="assets/image/footer_pic.png" width="95%" height="auto" border="none">
+        <a href="http://araten.co.jp/" target="_blank">©ARATEN 2018</a>
     </center>
   </footer>
-
 </ons-page>
-
-

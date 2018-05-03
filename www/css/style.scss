@@ -572,3 +572,43 @@ ons-list-item.list-item {
 
     }
 }
+
+/* ヘルプ */
+#help {
+    main {
+        @include myMargin();
+    }
+    h1 {
+        color: $brown520;
+        padding-top: 0.25em;
+        border-bottom: 1px solid $gray444;
+        font: {
+            size: 18px;
+            weight: bold;
+        }
+    }
+    ul {
+        list-style-type: none;
+        padding-left: 1em;
+    }
+    li {
+        &:first-child {
+            font-weight: bold;
+            @include myMargin();
+        }
+        @include myMargin(1em);
+    }
+    p {
+        @include myMargin(1em);
+    }
+    div {
+        .center {
+            text-align: center;
+            img {
+                width: 50%;
+                box-shadow: 2px 2px 2px $black222;
+                border: 1px solid $black222;
+            }
+        }
+    }
+}
