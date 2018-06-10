@@ -43,6 +43,10 @@
   background-size: auto;
 }
 
+.page[status-bar-fill] > .page__content {
+  top: 0;
+}
+
 /* menu */
 .menuIcon {
   font-size: 22px;
