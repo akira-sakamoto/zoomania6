@@ -175,9 +175,9 @@ $white:         #FFFFFF;
 //   text-shadow: 2px 2px 4px $black000;
 //   font-size: 32px;
 // }
-.photo {
+// .photo {
     
-}
+// }
 
 /* QRscan */
 .qrBody {
@@ -246,9 +246,9 @@ $white:         #FFFFFF;
 #zooMap {
   position: absolute;
 }
-ons-gesture-detector {
+ons-gesture-detector.zoomap {
   position: absolute;
-  top: 0px;
+  top: 44px;    // ヘッダの高さ
   left: 0px;
   right: 0px;
   bottom: 0px;

@@ -91,10 +91,14 @@
   padding: 0;
   width: 100%;
   height: 100%;
+  display: -webkit-inline-box;
+  display: -ms-inline-flexbox;
   display: inline-flex;
   background-color: #E9E496;
-  box-sizing: border-box;
-  box-shadow: 2px 1px 8px #442;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  -webkit-box-shadow: 2px 1px 8px #442;
+          box-shadow: 2px 1px 8px #442;
   border-radius: 8px;
   -webkit-border-radius: 8px;
   -moz-border-radius: 8px;
@@ -112,7 +116,8 @@
   padding: 1px;
   background-color: #663300;
   border: dashed 1px #E4C69E;
-  box-shadow: 1px 1px 8px 2px rgba(0, 0, 0, 0.4);
+  -webkit-box-shadow: 1px 1px 8px 2px rgba(0, 0, 0, 0.4);
+          box-shadow: 1px 1px 8px 2px rgba(0, 0, 0, 0.4);
 }
 
 .animalListName {
@@ -158,7 +163,8 @@
 .icon-trophy {
   width: 33px;
   height: 33px;
-  filter: drop-shadow(1px 1px 2px #000);
+  -webkit-filter: drop-shadow(1px 1px 2px #000);
+          filter: drop-shadow(1px 1px 2px #000);
 }
 
 /* QRscan */
@@ -181,7 +187,8 @@
 }
 
 .namePlate img {
-  box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.5);
+  -webkit-box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.5);
+          box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.5);
 }
 
 /*  ロゴ(2018.02.08) */
@@ -231,9 +238,9 @@
   position: absolute;
 }
 
-ons-gesture-detector {
+ons-gesture-detector.zoomap {
   position: absolute;
-  top: 0px;
+  top: 44px;
   left: 0px;
   right: 0px;
   bottom: 0px;
@@ -285,7 +292,8 @@ ons-gesture-detector {
   background: #552200;
   border: dashed 1px white;
   border-radius: 10px;
-  box-shadow: 2px 2px 3px #552200;
+  -webkit-box-shadow: 2px 2px 3px #552200;
+          box-shadow: 2px 2px 3px #552200;
 }
 
 table.fee {
@@ -296,7 +304,8 @@ table.fee {
   border-collapse: collapse;
   border: solid 1px #552200;
   background: cream;
-  box-shadow: 2px 2px 3px #552200;
+  -webkit-box-shadow: 2px 2px 3px #552200;
+          box-shadow: 2px 2px 3px #552200;
 }
 
 .fee {
@@ -401,7 +410,8 @@ img.information {
   border: dashed 1px #552200;
   border-radius: 10px;
   text-shadow: 2px 2px 3px #552200;
-  box-shadow: 2px 2px 3px #552200;
+  -webkit-box-shadow: 2px 2px 3px #552200;
+          box-shadow: 2px 2px 3px #552200;
 }
 
 .annotation {
@@ -414,7 +424,8 @@ table.event {
   padding: 0;
   width: 80%;
   height: auto;
-  box-shadow: 2px 2px 3px #552200;
+  -webkit-box-shadow: 2px 2px 3px #552200;
+          box-shadow: 2px 2px 3px #552200;
 }
 
 .event th {
@@ -499,20 +510,31 @@ table.event {
 .bingo_thumbnail {
   width: 65px;
   height: 54px;
-  object-fit: cover;
+  -o-object-fit: cover;
+     object-fit: cover;
 }
 
 .bingo_animation {
+  -webkit-transition: -webkit-transform 0.5s linear;
+  transition: -webkit-transform 0.5s linear;
   transition: transform 0.5s linear;
-  transform: scale(4, 4);
+  transition: transform 0.5s linear, -webkit-transform 0.5s linear;
+  -webkit-transform: scale(4, 4);
+          transform: scale(4, 4);
   color: #FF3333;
   text-shadow: 1px -1px 1px #FFFFFF, 1px 1px 1px #FFFFFF, -1px 1px 1px #FFFFFF, -1px -1px 1px #FFFFFF;
 }
 
 .centering {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  justify-content: center;
-  align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
 }
 
 /* メニューをくっつける */
@@ -526,7 +548,7 @@ ons-list-item.list-item {
 
 /* 大人の方へ */
 .list--to-parents {
-  background-color: transparent;
+  background-color: rgba(0, 0, 0, 0);
   margin-left: 0.25em;
   margin-right: 0.25em;
   padding-top: 2em;
@@ -588,7 +610,8 @@ ons-list-item.list-item {
 
 #help div .center img {
   width: 50%;
-  box-shadow: 2px 2px 2px #222;
+  -webkit-box-shadow: 2px 2px 2px #222;
+          box-shadow: 2px 2px 2px #222;
   border: 1px solid #222;
 }
 /*# sourceMappingURL=style.css.map */

@@ -265,10 +265,10 @@ ons.ready(function() {
       console.log("_pageList.map >>");
 
       function scaleStr(scale) {
-        return sprintf("scale(%g,%g)", scale, scale);
+        return sprintf("scale(%.3f,%.3f)", scale, scale);
       }
       function translateStr(deltaX, deltaY) {
-        return sprintf("translate(%gpx,%gpx)", deltaX, deltaY);
+        return sprintf("translate(%.3fpx,%.3fpx)", deltaX, deltaY);
         // "translate(" + deltaX + "px," + deltaY + "px)";
       }
       function translateXstr(delta) {
