@@ -66,7 +66,7 @@ ons.ready(function() {
 
     // スタブデータを読み込む
     if (_qrStub.length === 0) {
-      $.getJSON("assets/qrstub.json", function(data) {
+      $.getJSON("assets/qrStub.json", function(data) {
         _qrStub = data;
         console.log("load qrstub");
       });
@@ -611,10 +611,9 @@ function checkParameters(params) {
   var getHash = hashObj.getHash("HEX");
   console.log("paramHash = " + paramHash);
   console.log("getHash = " + getHash);
-  if (paramHash !== getHash)
-    return false;
-
-  return true;
+  
+  // 8文字だけで判定する
+  return (paramHash.substr(0, 8) === getHash.substr(0, 8));
 }
 
 /**
